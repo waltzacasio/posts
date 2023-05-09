@@ -1,6 +1,6 @@
 <?php
 
-class pages extends CI_Controller{
+class Pages extends CI_Controller{
 
     public function view($param = null){
 
@@ -16,7 +16,7 @@ class pages extends CI_Controller{
             $data['posts'] = $this->Posts_model->get_posts();
     
             //print_r($data['document']);
-    
+     
     
     
             $this->load->view('templates/header');
@@ -24,6 +24,7 @@ class pages extends CI_Controller{
             $this->load->view('templates/footer');
     
         }else{
+            
             $page ="single";
 
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
@@ -32,15 +33,20 @@ class pages extends CI_Controller{
     
             
             $data['posts'] = $this->Posts_model->get_posts_single($param);
-            $data['title'] = $data['posts']['title'];
+            $data['title'] = $data['posts']['title'] ?? null;
             //print_r($data);
     
     
-    
+        if($data['posts']){
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
+        }else{
+            show_404();
+
         }
 
     }
+}
+
 }

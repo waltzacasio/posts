@@ -22,4 +22,4 @@ class Posts_model extends CI_Model{
         return $result->row_array();
     }
 
-}
+} 

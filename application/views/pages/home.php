@@ -1,6 +1,11 @@
+<?php if($this->session->flashdata('post_added')) : ?>
+    <?= '<p class="alert alert-success">'.$this->session->flashdata('post_added').'</p>';?>
+
+<?php endif;?>
+
 <h1><?= $title;?></h1>
-<ul>
+<ul class="list-group">
     <?php foreach($posts as $row){?>
-    <li><a href="<?= base_url();?><?= $row['id'];?>"><?= $row['title'];?></a></li>
+    <a class="list-group-item list-group-item-action" href="<?= base_url();?><?= $row[ 'slug'];?>"><?= $row['title'];?></a>
     <?php } ?>
 </ul>

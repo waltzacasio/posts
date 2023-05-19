@@ -11,10 +11,11 @@ class Pages extends CI_Controller{
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
                 show_404();
             }
-    
+            //'title' is a variable to the pages in view
             $data['title'] = "New Posts";
             $data['posts'] = $this->Posts_model->get_posts();
             $data['total'] = count($data['posts']);
+            //print_r($data);
             //print_r($data['document']);
      
     

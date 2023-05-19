@@ -10,7 +10,15 @@ class Posts_model extends CI_Model{
     public function get_posts(){
 
         $query = $this->db->get('post');
-        return $query->result_Array();
+        return $query->result_array();
+
+    }
+    //gikan ni sa pages/controller
+    public function get_posts_search($param){
+
+        $this->db->like('title', $param);
+        $query = $this->db->get('post');
+        return $query->result_array();
 
     }
 
@@ -65,6 +73,23 @@ class Posts_model extends CI_Model{
 
         return true;
         
+    }
+
+
+    public function login() {
+
+        $this->db->where('email', $this->input->post('username', true));
+        $this->db->where('password', $this->input->post('password', true));
+        $result = $this->db->get('user');
+
+        if($result->num_rows() == 1) {
+
+            return $result->row_array();
+
+        }else{
+
+            return false;
+        }
     }
 
 } 

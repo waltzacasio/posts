@@ -25,12 +25,21 @@
           <li class="nav-item">
             <a class="nav-link" href="add">Add New Post</a>
           </li>
+          <?php if($this->session->logged_in){?>
           <li class="nav-item">
+            <a class="nav-link" href="<?= base_url();?>logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><?= $this->session->fullname;?></a>
+          </li>
+          <?php } else {?>
+            <li class="nav-item">
             <a class="nav-link" href="<?= base_url();?>login">Login</a>
           </li>
+          <?php } ?>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" role="search" method="post" action="<?= base_url();?>search">
+          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>

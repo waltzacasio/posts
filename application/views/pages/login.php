@@ -1,10 +1,24 @@
 <h1>Login User</h1>
-<div class="form-group">
+<hr>
 
-    <input type="text" name="username" value="<?= set_value('username');?>" class="form-control">
+<?php if($this->session->flashdata('failed_login')) : ?>
+    <?= '<p class="alert alert-danger">'.$this->session->flashdata('failed_login').'</p>';?>
+<?php endif;?>
+
+<?php if($this->session->flashdata('user_loggedout')) : ?>
+    <?= '<p class="alert alert-success">'.$this->session->flashdata('user_loggedout').'</p>';?>
+<?php endif;?>
+
+<?= validation_errors();?>
+
+<?= form_open('login');?>
+<div class="form-group">
+    <label>Username / Email</label>
+    <input type="email" name="username" value="<?= set_value('username');?>" class="form-control" placeholder="Enter email as username">
 </div>
 
 <div class="form-group">
-
-    <input type="password" name="password" class="form-control">
+    <label>Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Enter password">
 </div>
+<button typ="submit" class="btn btn-primary">Login</button>

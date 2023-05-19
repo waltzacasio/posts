@@ -14,7 +14,7 @@ class Pages extends CI_Controller{
     
             $data['title'] = "New Posts";
             $data['posts'] = $this->Posts_model->get_posts();
-    
+            $data['total'] = count($data['posts']);
             //print_r($data['document']);
      
     
@@ -53,21 +53,93 @@ class Pages extends CI_Controller{
     }
 }
 
+public function search(){
+
+    $page ="home";
+    $param = $this->input->post('search');
+    if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
+        show_404();
+    }
+
+    $data['title'] = "New Posts";
+    $data['posts'] = $this->Posts_model->get_posts_search($param);//padung ni sa model
+    $data['total'] = count($data['posts']);
+
+    //print_r($data['document']);
+
+
+
+    $this->load->view('templates/header');
+    $this->load->view('pages/'.$page, $data);
+    $this->load->view('templates/footer');
+
+}
+
 //this goes to the login page!
 
 public function login() {
     
-    $page ="login";
+    $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
+    $this->form_validation->set_rules('username','username','required');
+    $this->form_validation->set_rules('password','password','required');
 
-            if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
-                show_404();
-            }
-    
-            $this->load->view('templates/header');
-            $this->load->view('pages/'.$page);
-            $this->load->view('templates/footer');
+    if($this->form_validation->run() == FALSE){
+            
+        $page ="login";
 
+        if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
+            show_404();
+        }
+
+
+        $this->load->view('templates/header');
+        $this->load->view('pages/'.$page);
+        $this->load->view('templates/footer');
+
+    }else{
+
+        $user_id = $this->Posts_model->login();
+
+        if($user_id){
+
+            $user_data = array(
+
+                'firstname' => $user_id['firstname'],
+                'lastname' => $user_id['lastname'],
+                'fullname' => $user_id['firstname'].' '.$user_id['lastname'],
+                'access' => $user_id['is_admin'],
+                'logged_in' => true
+                
+            );
+
+            $this->session->set_userdata($user_data);
+            $this->session->set_flashdata('user_loggedin','You are now logged in as '.$this->session->fullname);
+            redirect(base_url());
+
+        } else{
+            $this->session->set_flashdata('failed_login','Login is invalid');
+            redirect('login');
+        }
+
+    }
 }
+
+public function logout(){
+
+    $this->session->unset_userdata('firstname');
+    $this->session->unset_userdata('lastname');
+    $this->session->unset_userdata('fullname');
+    $this->session->unset_userdata('access');
+    $this->session->unset_userdata('logged_in');
+
+    $this->session->set_flashdata('user_loggedout', 'You are now loggged out');
+    redirect('login');
+}
+
+
+
+
+
 
 public function add() {
 

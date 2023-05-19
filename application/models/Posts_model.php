@@ -47,12 +47,24 @@ class Posts_model extends CI_Model{
         $id = $this->input->post('id');
         $data = array(
             'title' => $this->input->post('title'),
+            'slug' => url_title($this->input->post('title'), '-', true),
             'body' => $this->input->post('body')
 
         );
 
         $this->db->where('id', $id);
         return $this->db->update ('post', $data);
+    }
+
+
+    public function delete_post() {
+
+        $id = $this->input->post('id');
+        $this->db->where('id', $id);
+        $this->db->delete('post');
+
+        return true;
+        
     }
 
 } 

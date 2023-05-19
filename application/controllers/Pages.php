@@ -43,6 +43,7 @@ class Pages extends CI_Controller{
         if($data['posts']){
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
+            $this->load->view('templates/modal');
             $this->load->view('templates/footer');
         }else{
             show_404();
@@ -50,6 +51,22 @@ class Pages extends CI_Controller{
         }
 
     }
+}
+
+//this goes to the login page!
+
+public function login() {
+    
+    $page ="login";
+
+            if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
+                show_404();
+            }
+    
+            $this->load->view('templates/header');
+            $this->load->view('pages/'.$page);
+            $this->load->view('templates/footer');
+
 }
 
 public function add() {
@@ -122,6 +139,9 @@ public function edit($param){
 
 public function delete(){
 
+    $this->Posts_model->delete_post();
+    $this->session->set_flashdata('post_delete', 'Post was deleted successfully!');
+    redirect(base_url());
 
 }
 

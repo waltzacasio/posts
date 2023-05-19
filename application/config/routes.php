@@ -50,9 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+//these are pages/functions
+
+$route['login'] = 'pages/login';
+
 $route['add'] = 'pages/add';
 $route['edit/(:any)'] = 'pages/edit/$1';
-$route['delete/(:any)'] = 'pages/delete/$1';
+$route['delete'] = 'pages/delete';
 
 $route['default_controller'] = 'pages/view';
 

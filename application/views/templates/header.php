@@ -26,7 +26,7 @@
             <a class="nav-link" href="add">Add New Post</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <a class="nav-link" href="<?= base_url();?>login">Login</a>
           </li>
         </ul>
         <form class="d-flex" role="search">

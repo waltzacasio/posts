@@ -2,7 +2,7 @@
 
 class Pages extends CI_Controller{
 
-    public function view(/*$param = null*/){
+    public function view($param = null/**/){
 
        /* if($param == null) {*/
             
@@ -23,7 +23,7 @@ class Pages extends CI_Controller{
             $this->pagination->initialize($config);
 
             $data['title'] = "New Posts";
-            $data['posts'] = $this->Posts_model->get_posts($config['per_page'], $this->uri->segment(3));
+            $data['posts'] = $this->Posts_model->get_posts($config['per_page'], $param);
             //print_r($data['posts']);
             $data['total'] = count($data['posts']);
 

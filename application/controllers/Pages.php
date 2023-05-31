@@ -2,29 +2,38 @@
 
 class Pages extends CI_Controller{
 
-    public function view($param = null){
+    public function view(/*$param = null*/){
 
-        if($param == null) {
+       /* if($param == null) {*/
             
             $page ="home";
 
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
                 show_404();
             }
-            //'title' is a variable to the pages in view
+            
+
+            $this->load->library('pagination');
+
+            $config['base_url'] = 'http://127.0.0.1/posts/';        
+            $config['total_rows'] = count($this->Posts_model->get_posts(null, null));
+            $config['per_page'] = 10;
+            $config['num_links'] = 10;
+
+            $this->pagination->initialize($config);
+
             $data['title'] = "New Posts";
-            $data['posts'] = $this->Posts_model->get_posts();
+            $data['posts'] = $this->Posts_model->get_posts($config['per_page'], $this->uri->segment(3));
+            //print_r($data['posts']);
             $data['total'] = count($data['posts']);
-            //print_r($data);
-            //print_r($data['document']);
-     
-    
-    
+
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
-    
-        }else{
+
+            
+                
+       /* }else{
             
             $page ="single";
 
@@ -32,7 +41,6 @@ class Pages extends CI_Controller{
                 show_404();
             }
     
-            
             $data['posts'] = $this->Posts_model->get_posts_single($param);
             $data['title'] = $data['posts']['title'] ?? null;
             $data['body'] = $data['posts']['body'] ?? null;
@@ -51,7 +59,7 @@ class Pages extends CI_Controller{
 
         }
 
-    }
+    }*/
 }
 
 public function search(){

@@ -7,9 +7,9 @@ class Posts_model extends CI_Model{
         $this->load->database();
     }
 
-    public function get_posts(){
+    public function get_posts($limit, $offset){
 
-        $query = $this->db->get('post');
+        $query = $this->db->get('gpinoy', $limit, $offset);
         return $query->result_array();
 
     }

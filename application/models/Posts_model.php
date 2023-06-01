@@ -9,15 +9,22 @@ class Posts_model extends CI_Model{
 
     public function get_posts($limit = 0, $offset = 0){
 
-        $query = $this->db->get('gpinoy', $limit, $offset);
+        $query = $this->db->get('post', $limit, $offset);
         return $query->result_array();
 
     }
     //gikan ni sa pages/controller
     public function get_posts_search($param){
 
-        $this->db->like('title', $param);
-        $query = $this->db->get('post');
+        $this->db->like('lastName', $param);
+        $this->db->or_like('firstName', $param);
+        $this->db->or_like('address', $param);
+        $this->db->or_like('boxNumber', $param);
+        $this->db->or_like('remarks', $param);
+        $this->db->or_like('dateOfPurchase', $param);
+        $this->db->or_like('installer', $param);
+
+        $query = $this->db->get('gpinoy');
         return $query->result_array();
 
     }

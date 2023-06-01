@@ -15,11 +15,11 @@
 
 <!--
 <ul class="list-group">
-    <?php /*foreach($posts as $row){?>
+    <?php/* foreach($posts as $row){*/?>
     <a class="list-group-item list-group-item-action" href="<?= base_url();?><?= $row['slug'];?>"><?= $row['title'];?></a>  
-    <?php }*/ ?>
+    <?php /*}*/ ?>
 </ul>
--->
+    -->
 
 <br/>
 
@@ -44,8 +44,8 @@
       <td><?= $row['address'];?></td>
       <td><?= $row['boxNumber'];?></td>
       <td></td>
-      <td><?= $row['remark'];?></td>
-      <td><?= $row['date'];?></td>
+      <td><?= $row['remarks'];?></td>
+      <td><?= $row['dateOfPurchase'];?></td>
       <td><?= $row['installer'];?></td>
 
     </tr>

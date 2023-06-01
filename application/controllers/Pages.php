@@ -65,7 +65,7 @@ class Pages extends CI_Controller{
 public function search(){
 
     $page ="home";
-    $param = $this->input->post('search');
+    $param = $this->input->post('search') ?? '';
     if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
         show_404();
     }

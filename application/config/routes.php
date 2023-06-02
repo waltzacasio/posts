@@ -62,7 +62,6 @@ $route['delete'] = 'pages/delete';
 
 $route['search'] = 'pages/search';
 $route['default_controller'] = 'pages/view';
-//$route['posts/:num'] = 'index/view/$1';
 
 $route['(:any)'] = 'pages/view/$1'; 
 

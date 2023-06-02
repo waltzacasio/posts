@@ -2,11 +2,11 @@
 
 class Pages extends CI_Controller{
 
-    public function view($param = null/**/){
+    //public function view($param = null/**/){
 
        /* if($param == null) {*/
             
-            $page ="home";
+            /*$page ="home";
 
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
                 show_404();
@@ -29,7 +29,7 @@ class Pages extends CI_Controller{
 
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
-            $this->load->view('templates/footer');
+            $this->load->view('templates/footer');*/
 
             
                 
@@ -60,7 +60,7 @@ class Pages extends CI_Controller{
         }
 
     }*/
-}
+//}
 
 public function search(){
 

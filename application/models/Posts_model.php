@@ -13,19 +13,36 @@ class Posts_model extends CI_Model{
         return $query->result_array();
 
     }
+
     //gikan ni sa pages/controller
     public function get_posts_search($param){
 
-        $this->db->like('lastName', $param);
-        $this->db->or_like('firstName', $param);
-        $this->db->or_like('address', $param);
-        $this->db->or_like('boxNumber', $param);
-        $this->db->or_like('remarks', $param);
-        $this->db->or_like('dateOfPurchase', $param);
-        $this->db->or_like('installer', $param);
+        $keywords = explode(' ', $param);
+        //print_r($keywords);
+        $this->db->select('*');
+        //$this->db->from('gpinoy');
+
+        foreach ($keywords as $word) {
+            $this->db->group_start();
+            $this->db->like('lastName', $word);
+            $this->db->or_like('firstName', $word);
+            $this->db->or_like('address', $word);
+            $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('remarks', $word);
+            $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('installer', $word);
+            // Add more columns if needed
+            $this->db->group_end();
+        }
+
 
         $query = $this->db->get('gpinoy');
+        $str = $this->db->last_query();
+        print_r($str);
+        
         return $query->result_array();
+
+       
 
     }
 

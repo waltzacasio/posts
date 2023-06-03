@@ -2,11 +2,11 @@
 
 class Pages extends CI_Controller{
 
-    //public function view($param = null/**/){
+    public function view($param = null/**/){
 
-       /* if($param == null) {*/
+        if($param == null) {
             
-            /*$page ="home";
+            $page ="home";
 
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
                 show_404();
@@ -29,7 +29,7 @@ class Pages extends CI_Controller{
 
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
-            $this->load->view('templates/footer');*/
+            $this->load->view('templates/footer');
 
             
                 
@@ -58,20 +58,31 @@ class Pages extends CI_Controller{
             show_404();
 
         }
+*/
+    }
+}
 
-    }*/
-//}
+public function search($param = null){
 
-public function search(){
+    if($param == null) {
 
-    $page ="home";
-    $param = $this->input->post('search') ?? '';
+    $page ="search";
+    $searchedWords = $this->input->post('search') ?? '';
     if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
         show_404();
     }
 
-    $data['title'] = "New Posts";
-    $data['posts'] = $this->Posts_model->get_posts_search($param);//padung ni sa model
+    $this->load->library('pagination');
+
+    $config['base_url'] = 'http://127.0.0.1/posts/search';        
+    $config['total_rows'] = count($this->Posts_model->get_posts_search($searchedWords));
+    $config['per_page'] = 10;
+    $config['num_links'] = 10;
+
+    $this->pagination->initialize($config);
+
+    $data['title'] = "Search Posts";
+    $data['posts'] = $this->Posts_model->get_posts_search($searchedWords, $config['per_page'], $param);//padung ni sa model
     $data['total'] = count($data['posts']);
 
     //print_r($data['document']);
@@ -82,6 +93,7 @@ public function search(){
     $this->load->view('pages/'.$page, $data);
     $this->load->view('templates/footer');
 
+    }
 }
 
 //this goes to the login page!

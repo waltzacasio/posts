@@ -7,7 +7,7 @@ class Posts_model extends CI_Model{
         $this->load->database();
     }
 
-    public function get_posts($limit = 0, $offset = 0){
+    public function get_posts($limit = 0, $offset = 0){  
 
         $query = $this->db->get('post', $limit, $offset);
         return $query->result_array();
@@ -15,9 +15,9 @@ class Posts_model extends CI_Model{
     }
 
     //gikan ni sa pages/controller
-    public function get_posts_search($param){
+    public function get_posts_search($searchedWords, $limit = 0, $offset = 0){
 
-        $keywords = explode(' ', $param);
+        $keywords = explode(' ', $searchedWords);
         //print_r($keywords);
         $this->db->select('*');
         //$this->db->from('gpinoy');
@@ -35,15 +35,17 @@ class Posts_model extends CI_Model{
             $this->db->group_end();
         }
 
+        // Set the LIMIT and OFFSET
+        //$this->db->limit($limit, $offset);
 
-        $query = $this->db->get('gpinoy');
+
+        $query = $this->db->get('gpinoy', $limit, $offset);
         $str = $this->db->last_query();
         print_r($str);
         
         return $query->result_array();
 
        
-
     }
 
     public function get_posts_single($param){

@@ -60,7 +60,8 @@ $route['add'] = 'pages/add';
 $route['edit/(:any)'] = 'pages/edit/$1';
 $route['delete'] = 'pages/delete';
 
-$route['search'] = 'pages/search';
+$route['search'] = 'pages/search/';
+$route['search/(:any)'] = 'pages/search/$1';
 $route['default_controller'] = 'pages/view';
 
 $route['(:any)'] = 'pages/view/$1'; 

@@ -13,6 +13,11 @@
 
 <h1><?= $title;?></h1>
 
+<form class="d-flex" role="search" method="post" action="<?= base_url();?>search">
+          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" required>
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
 <!--
 <ul class="list-group">
     <?php/* foreach($posts as $row){*/?>
@@ -29,7 +34,7 @@
       <th scope="col">Last Name</th>
       <th scope="col">First Name</th>
       <th scope="col">Address</th>
-      <th scope="col">Box Number</th>
+      <th scope="col">SN/Access ID/Acc. Num.</th>
       <th scope="col">Box Type</th>
       <th scope="col">Remarks</th>
       <th scope="col">Date of Purchase</th>

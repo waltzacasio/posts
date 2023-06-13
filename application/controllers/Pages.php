@@ -11,21 +11,9 @@ class Pages extends CI_Controller{
             if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
                 show_404();
             }
-            
 
-            $this->load->library('pagination');
+            $data['title'] = "Home";
 
-            $config['base_url'] = 'http://127.0.0.1/posts/';        
-            $config['total_rows'] = count($this->Posts_model->get_posts(null, null));
-            $config['per_page'] = 10;
-            $config['num_links'] = 10;
-
-            $this->pagination->initialize($config);
-
-            $data['title'] = "New Posts";
-            $data['posts'] = $this->Posts_model->get_posts($config['per_page'], $param);
-            //print_r($data['posts']);
-            $data['total'] = count($data['posts']);
 
             $this->load->view('templates/header');
             $this->load->view('pages/'.$page, $data);
@@ -62,19 +50,18 @@ class Pages extends CI_Controller{
     }
 }
 
-public function search($param = null){
+public function search($param1 = null)
+{
+    $page = "search";
+    $searchedWords = $param1 ? urldecode($param1) : $this->input->post('search') ?? '';
 
-    if($param == null) {
-
-    $page ="search";
-    $searchedWords = $this->input->post('search') ?? '';
-    if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
+    if (!file_exists(APPPATH . 'views/pages/' . $page . '.php')) {
         show_404();
     }
 
     $this->load->library('pagination');
 
-    $config['base_url'] = 'http://127.0.0.1/posts/search';        
+    $config['base_url'] = 'http://127.0.0.1/posts/search/' . urlencode($searchedWords);
     $config['total_rows'] = count($this->Posts_model->get_posts_search($searchedWords));
     $config['per_page'] = 10;
     $config['num_links'] = 10;
@@ -82,19 +69,14 @@ public function search($param = null){
     $this->pagination->initialize($config);
 
     $data['title'] = "Search Posts";
-    $data['posts'] = $this->Posts_model->get_posts_search($searchedWords, $config['per_page'], $param);//padung ni sa model
-    $data['total'] = count($data['posts']);
-
-    //print_r($data['document']);
-
-
+    $data['posts'] = $this->Posts_model->get_posts_search($searchedWords, $config['per_page'], $this->uri->segment(3));
+    $data['total'] = $config['total_rows'];
 
     $this->load->view('templates/header');
-    $this->load->view('pages/'.$page, $data);
+    $this->load->view('pages/' . $page, $data);
     $this->load->view('templates/footer');
-
-    }
 }
+
 
 //this goes to the login page!
 
@@ -175,7 +157,7 @@ public function add() {
             show_404();
         }
 
-        $data['title'] = "Add New Post";
+        $data['title'] = "Add New Record";
 
 
 

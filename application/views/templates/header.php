@@ -23,7 +23,7 @@
             <a class="nav-link active" aria-current="page" href="<?= base_url();?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="add">Add New Post</a>
+            <a class="nav-link" href="add">New Record</a>
           </li>
           <?php if($this->session->logged_in){?>
           <li class="nav-item">
@@ -38,10 +38,7 @@
           </li>
           <?php } ?>
         </ul>
-        <form class="d-flex" role="search" method="post" action="<?= base_url();?>search">
-          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+
       </div>
     </div>
   </nav>

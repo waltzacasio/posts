@@ -34,11 +34,12 @@
       <th scope="col">Last Name</th>
       <th scope="col">First Name</th>
       <th scope="col">Address</th>
-      <th scope="col">SN/Access ID/Acc. Num.</th>
+      <th scope="col">Box Number</th>
       <th scope="col">Box Type</th>
-      <th scope="col">Remarks</th>
+      <th scope="col">Transaction Type</th>
       <th scope="col">Date of Purchase</th>
       <th scope="col">Installer</th>
+      <th scope="col">Remarks</th>
     </tr>
   </thead>
   <tbody>
@@ -49,9 +50,10 @@
       <td><?= $row['address'];?></td>
       <td><?= $row['boxNumber'];?></td>
       <td></td>
-      <td><?= $row['remarks'];?></td>
+      <td><?= $row['transactionType'];?></td>
       <td><?= $row['dateOfPurchase'];?></td>
       <td><?= $row['installer'];?></td>
+      <td><?= $row['remarks'];?></td>
 
     </tr>
     <?php } ?>

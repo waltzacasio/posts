@@ -35,6 +35,8 @@
                         }
                     }
 
+                    </script>
+
 
 
     
@@ -42,25 +44,25 @@
 
         
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="boxtype" id="gpinoy" onchange="toggleInput()">
+                <input class="form-check-input" type="radio" name="boxtype" value="gpinoy" id="gpinoy" onchange="toggleInput()">
                 <label class="form-check-label" for="gpinoy">
                     Gpinoy
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="boxtype" id="gsathd" onchange="toggleInput()">
+                <input class="form-check-input" type="radio" name="boxtype" value="gsathd" id="gsathd" onchange="toggleInput()">
                 <label class="form-check-label" for="gsathd">
                     GSAT HD
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="boxtype" id="cignal" onchange="toggleInput()">
+                <input class="form-check-input" type="radio" name="boxtype" value="cignal" id="cignal" onchange="toggleInput()">
                 <label class="form-check-label" for="cignal">
                     Cignal
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="boxtype" id="satlite" onchange="toggleInput()">
+                <input class="form-check-input" type="radio" name="boxtype" value="satlite" id="satlite" onchange="toggleInput()">
                 <label class="form-check-label" for="satlite">
                     Satlite
                 </label>
@@ -71,6 +73,7 @@
         <div class="form-group">
 <br>
                 <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?= set_value('firstname');?>">
+                <?php echo form_error('title'); ?>
                 <br> 
                 <input type="text" name="lastname" class="form-control"  placeholder="Last Name" value="<?= set_value('lastname');?>">
                 <br> 
@@ -86,25 +89,25 @@
                 
                 <!-- purchase type -->
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" id="install">
+                <input class="form-check-input" type="radio" name="purchasetype" value="install" id="install">
                 <label class="form-check-label" for="install">
                     Install
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" id="set">
+                <input class="form-check-input" type="radio" name="purchasetype" value="set" id="set">
                 <label class="form-check-label" for="set">
                     Set
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" id="boxkit">
+                <input class="form-check-input" type="radio" name="purchasetype" value="boxkit" id="boxkit">
                 <label class="form-check-label" for="boxkit">
                     Box Kit
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" id="nagparecord">
+                <input class="form-check-input" type="radio" name="purchasetype" value="nagparecord" id="nagparecord">
                 <label class="form-check-label" for="nagparecord">
                     Nagparecord
                 </label>

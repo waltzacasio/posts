@@ -14,8 +14,117 @@ class Posts_model extends CI_Model{
 
     }
 
-    //gikan ni sa pages/controller
     public function get_posts_search($searchedWords, $limit = 0, $offset = 0){
+
+        $keywords = explode(' ', $searchedWords);
+        //query gpinoy table
+        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->from('gpinoy');
+
+        foreach ($keywords as $word) {
+            $this->db->group_start();
+            $this->db->like('lastName', $word);
+            $this->db->or_like('firstName', $word);
+            $this->db->or_like('address', $word);
+            $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('transactionType', $word);
+            $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('installer', $word);
+            $this->db->or_like('remarks', $word);
+            // Add more columns if needed
+            $this->db->group_end();
+        }
+
+        $query1 = $this->db->get_compiled_select();
+
+        //query gsathd table
+        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->from('gsathd');
+
+        foreach ($keywords as $word) {
+            $this->db->group_start();
+            $this->db->like('lastName', $word);
+            $this->db->or_like('firstName', $word);
+            $this->db->or_like('address', $word);
+            $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('transactionType', $word);
+            $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('installer', $word);
+            $this->db->or_like('remarks', $word);
+            // Add more columns if needed
+            $this->db->group_end();
+        }
+
+        $query2 = $this->db->get_compiled_select();
+
+        //query cignal table
+        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->from('cignal');
+
+        foreach ($keywords as $word) {
+            $this->db->group_start();
+            $this->db->like('lastName', $word);
+            $this->db->or_like('firstName', $word);
+            $this->db->or_like('address', $word);
+            $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('transactionType', $word);
+            $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('installer', $word);
+            $this->db->or_like('remarks', $word);
+            // Add more columns if needed
+            $this->db->group_end();
+        }
+
+        $query3 = $this->db->get_compiled_select();
+
+            //query cignal table
+            $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+            $this->db->from('satlite');
+    
+            foreach ($keywords as $word) {
+                $this->db->group_start();
+                $this->db->like('lastName', $word);
+                $this->db->or_like('firstName', $word);
+                $this->db->or_like('address', $word);
+                $this->db->or_like('boxNumber', $word);
+                $this->db->or_like('transactionType', $word);
+                $this->db->or_like('dateOfPurchase', $word);
+                $this->db->or_like('installer', $word);
+                $this->db->or_like('remarks', $word);
+                // Add more columns if needed
+                $this->db->group_end();
+            }
+
+        $query4 = $this->db->get_compiled_select();
+
+        // Combine the queries using UNION
+        $unionQuery = $query1 . ' UNION ' . $query2 . ' UNION ' . $query3 . ' UNION ' . $query4;
+
+        $combinedQueryWithLimit = $unionQuery . ' LIMIT ';
+
+        $combinedQueryWithLimit = $unionQuery . ' ORDER BY lastName, firstName';
+
+        if ($limit > 0) {
+            $combinedQueryWithLimit .= ' LIMIT ' . $limit;
+            
+            if ($offset > 0) {
+                $combinedQueryWithLimit .= ' OFFSET ' . $offset;
+            }
+        }
+
+        // Execute the combined query
+        $query = $this->db->query($combinedQueryWithLimit);
+
+        $str = $this->db->last_query();
+        print_r($str);
+        
+        return $query->result_array();
+
+       
+    }
+
+    //gikan ni sa pages/controller
+    /*public function get_posts_search($searchedWords, $limit = 0, $offset = 0){
 
         $keywords = explode(' ', $searchedWords);
         //print_r($keywords);
@@ -46,7 +155,7 @@ class Posts_model extends CI_Model{
         return $query->result_array();
 
        
-    }
+    }*/
 
     public function get_posts_single($param){
 
@@ -66,13 +175,87 @@ class Posts_model extends CI_Model{
 
     public function insert_post(){
 
-        $data = array(
+        $boxtype = $this->input->post('boxtype');
+
+        if ($boxtype == "gpinoy") {
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'boxNumber' => $this->input->post('boxnumber'),
+                'chipid' => $this->input->post('chipcca'),
+                'purchaseType' => $this->input->post('purchasetype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            return $this->db->insert('gpinoy', $data);
+
+        } else if ($boxtype == "gsathd") {
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'boxNumber' => $this->input->post('boxnumber'),
+                'chipid' => $this->input->post('chipcca'),
+                'remarks' => $this->input->post('purchasetype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            return $this->db->insert('gsathd', $data);
+
+        } else if ($boxtype == "cignal") {
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'boxNumber' => $this->input->post('boxnumber'),
+                'cca' => $this->input->post('chipcca'),
+                'stb' => $this->input->post('stb'),
+                'purchaseType' => $this->input->post('purchasetype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            return $this->db->insert('cignal', $data);
+
+        } else if ($boxtype == "satlite") {
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'boxNumber' => $this->input->post('boxnumber'),
+                'stb' => $this->input->post('chipcca'),
+                'cca' => $this->input->post('stb'),
+                'purchaseType' => $this->input->post('purchasetype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            return $this->db->insert('satlite', $data);
+        } 
+
+
+
+
+
+
+        /*$data = array(
             'title' => $this->input->post('title'),
             'slug' => url_title($this->input->post('title'), '-', true),
             'body' => $this->input->post('body')
         );
 
-        return $this->db->insert('post', $data);
+        return $this->db->insert('post', $data);*/
 
     }
 

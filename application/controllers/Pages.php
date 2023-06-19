@@ -147,8 +147,8 @@ public function logout(){
 public function add() {
 
     $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
-    $this->form_validation->set_rules('title','Title','required');
-    $this->form_validation->set_rules('body','body','required');
+    $this->form_validation->set_rules('firstname','First Name','required');
+    $this->form_validation->set_rules('lastname','Last Name','required');
     if($this->form_validation->run() == FALSE){
             
         $page ="add";

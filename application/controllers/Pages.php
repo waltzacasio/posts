@@ -72,6 +72,7 @@ public function search($param1 = null)
     $data['posts'] = $this->Posts_model->get_posts_search($searchedWords, $config['per_page'], $this->uri->segment(3));
     $data['total'] = $config['total_rows'];
 
+
     $this->load->view('templates/header');
     $this->load->view('pages/' . $page, $data);
     $this->load->view('templates/footer');

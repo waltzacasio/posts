@@ -89,25 +89,25 @@
                 
                 <!-- purchase type -->
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" value="install" id="install">
+                <input class="form-check-input" type="radio" name="transactiontype" value="INSTALL" id="install">
                 <label class="form-check-label" for="install">
                     Install
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" value="set" id="set">
+                <input class="form-check-input" type="radio" name="transactiontype" value="SET" id="set">
                 <label class="form-check-label" for="set">
                     Set
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" value="boxkit" id="boxkit">
+                <input class="form-check-input" type="radio" name="transactiontype" value="BOX KIT" id="boxkit">
                 <label class="form-check-label" for="boxkit">
                     Box Kit
                 </label>
                 </div>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="purchasetype" value="nagparecord" id="nagparecord">
+                <input class="form-check-input" type="radio" name="transactiontype" value="Nagparecord" id="nagparecord">
                 <label class="form-check-label" for="nagparecord">
                     Nagparecord
                 </label>

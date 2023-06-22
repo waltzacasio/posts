@@ -40,6 +40,7 @@
       <th scope="col">Date of Purchase</th>
       <th scope="col">Installer</th>
       <th scope="col">Remarks</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -54,7 +55,7 @@
       <td><?= $row['dateOfPurchase'];?></td>
       <td><?= $row['installer'];?></td>
       <td><?= $row['remarks'];?></td>
-
+      <td><a href="<?= base_url();?><?= $row['tableName'] . "/";?><?= $row['boxNumber'];?>"><?= "View Details" ?></a></td>
     </tr>
     <?php } ?>
   </tbody>

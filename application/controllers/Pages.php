@@ -19,9 +19,10 @@ class Pages extends CI_Controller{
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
 
-            
-                
-       /* }else{
+    }
+}
+     
+    public function details($param1, $param2) {
             
             $page ="single";
 
@@ -29,10 +30,22 @@ class Pages extends CI_Controller{
                 show_404();
             }
     
-            $data['posts'] = $this->Posts_model->get_posts_single($param);
-            $data['title'] = $data['posts']['title'] ?? null;
-            $data['body'] = $data['posts']['body'] ?? null;
-            $data['date'] = $data['posts']['date_published'] ?? null;
+            $data['posts'] = $this->Posts_model->get_posts_single($param1, $param2);
+            $data['title'] = "Customer Details" ?? null;
+            $data['firstName'] = $data['posts']['firstName'] ?? null;
+            $data['lastName'] = $data['posts']['lastName'] ?? null;
+            $data['address'] = $data['posts']['address'] ?? null;
+            $data['boxNumber'] = $data['posts']['boxNumber'] ?? null;
+            $data['chipid'] = $data['posts']['chipid'] ?? null;
+            $data['cca'] = $data['posts']['cca'] ?? null;
+            $data['stb'] = $data['posts']['stb'] ?? null;
+            $data['transactionType'] = $data['posts']['transactionType'] ?? null;
+            $data['dateOfPurchase'] = $data['posts']['dateOfPurchase'] ?? null;
+            $data['type'] = $data['posts']['type'] ?? null;
+            $data['contact'] = $data['posts']['contact'] ?? null;
+            $data['installer'] = $data['posts']['installer'] ?? null;
+            $data['remarks'] = $data['posts']['remarks'] ?? null;
+            
             $data['id'] = $data['posts']['id'] ?? null;
             //print_r($data);
     
@@ -46,9 +59,9 @@ class Pages extends CI_Controller{
             show_404();
 
         }
-*/
-    }
+
 }
+
 
 public function search($param1 = null)
 {

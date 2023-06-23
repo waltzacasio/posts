@@ -130,9 +130,9 @@ class Posts_model extends CI_Model{
 
     public function get_posts_single($param1, $param2){
 
-        $this->db->where('tableName', $param1);
+        //$query = $this->db->query('SELECT boxNumber FROM ' . $param1);
         $this->db->where('boxNumber', $param2);
-        $result = $this->db->get('post');
+        $result = $this->db->get($this->db->escape_identifiers($param1));
 
         return $result->row_array();
     }
@@ -144,6 +144,14 @@ class Posts_model extends CI_Model{
 
         return $result->row_array();
     }
+
+    /*public function get_posts_edit($param){
+
+        $this->db->where('id', $param);
+        $result = $this->db->get('post');
+
+        return $result->row_array();
+    }*/
 
     public function insert_post(){
 

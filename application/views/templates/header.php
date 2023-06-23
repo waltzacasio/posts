@@ -23,7 +23,7 @@
             <a class="nav-link active" aria-current="page" href="<?= base_url();?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="add">New Record</a>
+            <a class="nav-link" href="<?= base_url();?>add">New Record</a>
           </li>
           <?php if($this->session->logged_in){?>
           <li class="nav-item">

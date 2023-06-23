@@ -55,7 +55,11 @@
       <td><?= $row['dateOfPurchase'];?></td>
       <td><?= $row['installer'];?></td>
       <td><?= $row['remarks'];?></td>
-      <td><a href="<?= base_url();?><?= $row['tableName'] . "/";?><?= $row['boxNumber'];?>"><?= "View Details" ?></a></td>
+      <td><a href="<?= base_url() . "details/";?><?php if($row['tableName'] == "GPinoy"){echo "gpinoy";}
+      else if($row['tableName'] == "GSat HD"){echo "gsathd";}
+      else if ($row['tableName'] == "Cignal"){echo "cignal";}
+      else if ($row['tableName'] == "Satlite"){echo "satlite";}?><?= "/" . $row['boxNumber'];?>">
+      <?= "View Details" ?></a></td>
     </tr>
     <?php } ?>
   </tbody>

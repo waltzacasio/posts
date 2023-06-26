@@ -137,10 +137,10 @@ class Posts_model extends CI_Model{
         return $result->row_array();
     }
 
-    public function get_posts_edit($param){
+    public function get_posts_edit($param1, $param2){
 
-        $this->db->where('id', $param);
-        $result = $this->db->get('post');
+        $this->db->where('boxNumber', $param2);
+        $result = $this->db->get($this->db->escape_identifiers($param1));
 
         return $result->row_array();
     }

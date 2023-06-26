@@ -57,7 +57,7 @@ $route['logout'] = 'pages/logout';
 
     
 $route['add'] = 'pages/add';
-$route['edit/(:any)'] = 'pages/edit/$1';
+$route['edit/(:any)/(:any)'] = 'pages/edit/$1/$2';
 $route['delete'] = 'pages/delete';
 
 $route['search'] = 'pages/search/';

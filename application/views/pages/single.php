@@ -6,6 +6,11 @@
 
 <p><b>Address: </b> <?= $address; ?></p>
 
+<p><b>Box Type: </b> <?php if($this->uri->segment(2) == "gpinoy"){echo "GPinoy";}
+      else if($this->uri->segment(2) == "gsathd"){echo "GSat HD";}
+      else if ($this->uri->segment(2) == "cignal"){echo "Cignal";}
+      else if ($this->uri->segment(2) == "satlite"){echo "Satlite";}?></p>
+
 <p><b>Box Number: </b> <?= $boxNumber; ?></p>
 
 <p><b>Chip ID: </b> <?= $chipid; ?></p>

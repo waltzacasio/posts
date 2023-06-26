@@ -190,7 +190,7 @@ public function add() {
 
 }
 
-public function edit($param){
+public function edit($param1, $param2){
 
     $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
     $this->form_validation->set_rules('title','Title','required');
@@ -203,12 +203,28 @@ public function edit($param){
             show_404();
         }
 
-        $data['title'] = "Edit Post";
-        $data['posts'] = $this->Posts_model->get_posts_edit($param);
+        $data['posts'] = $this->Posts_model->get_posts_single($param1, $param2);
+            $data['title'] = "Edit Customer Details";
+            $data['firstName'] = $data['posts']['firstName'] ?? null;
+            $data['lastName'] = $data['posts']['lastName'] ?? null;
+            $data['address'] = $data['posts']['address'] ?? null;
+            $data['boxNumber'] = $data['posts']['boxNumber'] ?? null;
+            $data['chipid'] = $data['posts']['chipid'] ?? null;
+            $data['cca'] = $data['posts']['cca'] ?? null;
+            $data['stb'] = $data['posts']['stb'] ?? null;
+            $data['transactionType'] = $data['posts']['transactionType'] ?? null;
+            $data['dateOfPurchase'] = $data['posts']['dateOfPurchase'] ?? null;
+            $data['type'] = $data['posts']['type'] ?? null;
+            $data['contact'] = $data['posts']['contact'] ?? null;
+            $data['installer'] = $data['posts']['installer'] ?? null;
+            $data['remarks'] = $data['posts']['remarks'] ?? null;
+
+        /*$data['title'] = "Edit Customer Details";
+        $data['posts'] = $this->Posts_model->get_posts_edit($param1, $param2);
         $data['title'] = $data['posts']['title'] ?? null;
         $data['body'] = $data['posts']['body'] ?? null;
         $data['date'] = $data['posts']['date_published'] ?? null;
-        $data['id'] = $data['posts']['id'] ?? null;
+        $data['id'] = $data['posts']['id'] ?? null;*/
 
 
 

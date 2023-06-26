@@ -208,6 +208,7 @@ public function edit($param1, $param2){
             $data['firstName'] = $data['posts']['firstName'] ?? null;
             $data['lastName'] = $data['posts']['lastName'] ?? null;
             $data['address'] = $data['posts']['address'] ?? null;
+            $data['boxType'] = $param1 ?? null;
             $data['boxNumber'] = $data['posts']['boxNumber'] ?? null;
             $data['chipid'] = $data['posts']['chipid'] ?? null;
             $data['cca'] = $data['posts']['cca'] ?? null;

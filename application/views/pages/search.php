@@ -14,7 +14,7 @@
 <h1><?= $title;?></h1>
 
 <form class="d-flex" role="search" method="post" action="<?= base_url();?>search">
-          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" required>
+          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" value="<?= set_value('search');?>" required>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
 

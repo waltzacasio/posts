@@ -34,7 +34,7 @@
       else if ($boxType == "cignal"){echo "Cignal";}
       else if ($boxType == "satlite"){echo "Satlite";}?>" disabled> 
         <br> 
-        <b>Box Number :</b>
+        <span><b id="boxnumber-label">Box Number :</b></span>
         <input type="text" id="boxnumber" name="boxnumber" class="form-control"  placeholder="<?= $boxNumber;?>" disabled> 
         <br> 
         <span id="chipid-label"><b>Chip ID :</b>
@@ -76,25 +76,25 @@
 
 
             <script>
-                var boxType = "<?= $boxType; ?>";
-                var chipIdInput = document.getElementById("chipid");
-                var ccaInput = document.getElementById("cca");
-                var stbInput = document.getElementById("stb");
+                var boxType = "<?= $boxType ?>";
                 var chipIdLabel = document.getElementById("chipid-label");
                 var ccaLabel = document.getElementById("cca-label");
                 var stbLabel = document.getElementById("stb-label");
+                var boxnumberLabel = document.getElementById("boxnumber-label");
 
 
-                if (boxType === "gpinoy" || boxType === "gsathd") {
-                    //chipIdInput.style.display = "none";
+                if (boxType === "gpinoy") {
                     ccaLabel.style.display = "none";
                     stbLabel.style.display = "none";
-                    //ccaInput.style.display = "none";
-                    //stbInput.style.display = "none";
+                    boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) :";
+
+                } else if (boxType === "gsathd") {
+                    ccaLabel.style.display = "none";
+                    stbLabel.style.display = "none";
+                    boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) / Access ID :";
+
                 } else if (boxType === "cignal" || boxType === "satlite") {
                     chipIdLabel.style.display = "none";
-                    //chipIdInput.style.display = "none";
-                    //ccaInput.style.display = "none";
-                    //stbInput.style.display = "none";
+                    boxnumberLabel.innerHTML = "Box Number / Account No. :";
                 }
             </script>

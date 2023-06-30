@@ -19,6 +19,8 @@ class Pages extends CI_Controller{
             $this->load->view('pages/'.$page, $data);
             $this->load->view('templates/footer');
 
+    } else {
+        
     }
 }
      
@@ -63,10 +65,14 @@ class Pages extends CI_Controller{
 }
 
 
-public function search($param1 = null)
-{
+public function search($param1 = null) {
+
     $page = "search";
     $searchedWords = $param1 ? urldecode($param1) : $this->input->post('search') ?? '';
+
+    if (empty($searchedWords)) {
+        redirect(base_url());
+    }
 
     if (!file_exists(APPPATH . 'views/pages/' . $page . '.php')) {
         show_404();
@@ -89,6 +95,7 @@ public function search($param1 = null)
     $this->load->view('templates/header');
     $this->load->view('pages/' . $page, $data);
     $this->load->view('templates/footer');
+    
 }
 
 
@@ -161,8 +168,21 @@ public function logout(){
 public function add() {
 
     $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
+    $this->form_validation->set_rules('boxtype','Box Type','required');
     $this->form_validation->set_rules('firstname','First Name','required');
     $this->form_validation->set_rules('lastname','Last Name','required');
+    $this->form_validation->set_rules('address','Address','required');
+    $this->form_validation->set_rules('boxnumber','Box Number','required');
+    $this->form_validation->set_rules('chipcca','Chip ID / CCA No.','required');
+    $this->form_validation->set_rules('stb','STB ID','required');
+    $this->form_validation->set_rules('transactiontype','Transaction Type','required');
+    $this->form_validation->set_rules('dateofpurchase','Date Of Transaction','required');
+    $this->form_validation->set_rules('installer','Installer','required');
+    
+   
+    
+
+
     if($this->form_validation->run() == FALSE){
             
         $page ="add";

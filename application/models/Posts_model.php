@@ -119,8 +119,8 @@ class Posts_model extends CI_Model{
         // Execute the combined query
         $query = $this->db->query($combinedQueryWithLimit);
 
-        $str = $this->db->last_query();
-        print_r($str);
+        //$str = $this->db->last_query();
+        //print_r($str);
         
         return $query->result_array();
 

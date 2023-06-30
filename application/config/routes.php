@@ -62,7 +62,7 @@ $route['delete'] = 'pages/delete';
 
 $route['search'] = 'pages/search/';
 $route['search/(:any)'] = 'pages/search/$1';
-$route['search/(:any)/(:any)'] = 'pages/search/$1/$2';
+$route['search/(:any)/(:num)'] = 'pages/search/$1/$2';
 
 $route['details/(:any)/(:any)'] = 'pages/details/$1/$2';
 

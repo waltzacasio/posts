@@ -179,9 +179,6 @@ public function add() {
     $this->form_validation->set_rules('dateofpurchase','Date Of Transaction','required');
     $this->form_validation->set_rules('installer','Installer','required');
     
-   
-    
-
 
     if($this->form_validation->run() == FALSE){
             
@@ -191,9 +188,18 @@ public function add() {
             show_404();
         }
 
+        // Get the selected value of 'boxtype' from the submitted form data
+        $selectedBoxType = $this->input->post('boxtype');
+        if ($selectedBoxType) {
+            $this->session->set_userdata('selected_boxtype', $selectedBoxType);
+        }
+
+        $selectedBoxType = $this->session->userdata('selected_boxtype');
+
+        // Pass the selected value back to the view
+        $data['selectedBoxType'] = $selectedBoxType;
+
         $data['title'] = "Add New Record";
-
-
 
         $this->load->view('templates/header');
         $this->load->view('pages/'.$page, $data);

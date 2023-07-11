@@ -4,37 +4,7 @@
 
     <div class="col-lg-12">
 
-                    <script>
 
-                    function toggleInput() {
-                        var inputBoxNumber = document.getElementById("boxnumber");
-                        var inputChipCCA = document.getElementById("chipcca");
-                        var inputSTB = document.getElementById("stb");
-                        var radioGpinoy = document.getElementById("gpinoy");
-                        var radioGsatHD = document.getElementById("gsathd");
-                        var radioCignal = document.getElementById("cignal");
-                        var radioSatlite = document.getElementById("satlite");
-
-                        if (radioGpinoy.checked) {
-                            inputBoxNumber.placeholder = "Serial Number (SN)";
-                            inputChipCCA.placeholder = "Chip ID";
-                            inputSTB.style.display = "none";
-                        } else if (radioGsatHD.checked) {
-                            inputBoxNumber.placeholder = "Serial Number (SN) / Access ID";
-                            inputChipCCA.placeholder = "Chip ID";
-                            inputSTB.style.display = "none";
-                        } else if (radioCignal.checked) {
-                            inputBoxNumber.placeholder = "Account No.";
-                            inputChipCCA.placeholder = "CCA No.";
-                            inputSTB.style.display = "block";
-                        } else if (radioSatlite.checked) {
-                            inputBoxNumber.placeholder = "Account No.";
-                            inputChipCCA.placeholder = "CCA No.";
-                            inputSTB.style.display = "block";
-                        }
-                    }
-
-                    </script>
 
 
 
@@ -76,39 +46,35 @@
 
         <div class="form-group">
                 <br>
-                
-                <input type="text" name="firstname" class="form-control"  placeholder="First Name" value="<?= set_value('firstname');?>">
+                <b>First Name :</b>
+                <input type="text" name="firstname" class="form-control"  placeholder="Enter First Name" value="<?= set_value('firstname');?>">
                 <?php echo form_error('firstname'); ?>
                 <br> 
-                <input type="text" name="lastname" class="form-control"  placeholder="Last Name" value="<?= set_value('lastname');?>">
+                <b>Last Name :</b>
+                <input type="text" name="lastname" class="form-control"  placeholder="Enter Last Name" value="<?= set_value('lastname');?>">
                 <?php echo form_error('lastname'); ?>
                 <br> 
-                <input type="text" name="address" class="form-control"  placeholder="Address" value="<?= set_value('address');?>"> 
+                <b>Address :</b>
+                <input type="text" name="address" class="form-control"  placeholder="Enter Address" value="<?= set_value('address');?>"> 
                 <?php echo form_error('address'); ?>
                 <br> 
-                <input type="text" id="boxnumber" name="boxnumber" class="form-control"  placeholder="Box / SN / Acc No." value="<?= set_value('boxnumber');?>"> 
+                <b>Box Number :</b>
+                <input type="text" id="boxnumber" name="boxnumber" class="form-control"  placeholder="Enter Box / SN / Acc No." value="<?= set_value('boxnumber');?>"> 
                 <?php echo form_error('boxnumber'); ?>
-                <br> 
-                <input type="text" id="chipcca" name="chipcca" class="form-control"  placeholder="Chip ID / CCA No." value="<?= set_value('chipcca');?>">
+                <br>
+                <b>Chip ID / CCA No. :</b>
+                <input type="text" id="chipcca" name="chipcca" class="form-control"  placeholder="Enter Chip ID / CCA No." value="<?= set_value('chipcca');?>">
                 <?php echo form_error('chipcca'); ?>
                 <br> 
-                <input type="text" id="stb" name="stb" class="form-control"  placeholder="STB ID" value="<?= set_value('stb');?>"> 
-                <?php 
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        // Get the selected radio button value
-                        $selectedBoxType = $_POST['boxtype'];
-                        if (isset($_POST['boxtype'])) {
-                        // Use the selected value
-                        if ($selectedBoxType === 'cignal' || 'satlite') {
-                            echo form_error('stb');
-                        } else if ($selectedBoxType === 'gpinoy' || 'gsathd') {
-                            //
-                        }
-                        }
-                      }
-                 ?>
+                <div id="stb_label_input">
+                <b id="stb_label_add">STB ID :</b>
+                <input type="text" id="stb" name="stb" class="form-control"  placeholder="Enter STB ID" value="<?= set_value('stb');?>">
+                
+                <?php if ($selectedBoxType === 'cignal' || $selectedBoxType === 'satlite') {if (form_error('stb')): ?>
+                <div id="stb_error" class="error"><?php echo form_error('stb'); ?></div>
+                 <?php endif;} ?>
                 <br>
-
+                </div>
                 
                 <!-- purchase type -->
                 <b>Transaction Type :</b>
@@ -141,15 +107,19 @@
 
                 <br>
                 <br>
-                <input type="text" name="dateofpurchase" class="form-control"  placeholder="Date of Transaction" value="<?= set_value('dateofpurchase');?>">
+                <b>Transaction Date :</b>
+                <input type="text" name="dateofpurchase" class="form-control"  placeholder="Enter Date of Transaction" value="<?= set_value('dateofpurchase');?>">
                 <?php echo form_error('dateofpurchase'); ?>
                 <br> 
-                <input type="text" name="contact" class="form-control"  placeholder="Contact No." value="<?= set_value('contact');?>">
+                <b>Contact No. :</b>
+                <input type="text" name="contact" class="form-control"  placeholder="Enter Contact No." value="<?= set_value('contact');?>">
                 <br> 
-                <input type="text" name="installer" class="form-control"  placeholder="Installer" value="<?= set_value('installer');?>"> 
+                <b>Installer :</b>
+                <input type="text" name="installer" class="form-control"  placeholder="Enter Installer" value="<?= set_value('installer');?>"> 
                 <?php echo form_error('installer'); ?>
                 <br>
             <div class="form-group">
+                <b>Remarks :</b>
                 <textarea name="remarks" id="" cols="30" rows="5" class="form-control" placeholder="Enter remarks" value="<?= set_value('remarks');?>"></textarea>
             </div>
 
@@ -163,3 +133,71 @@
 
 
 </div>
+
+                    <script>
+
+                    function toggleInput() {
+                        var inputBoxNumber = document.getElementById("boxnumber");
+                        var inputChipCCA = document.getElementById("chipcca");
+                        //var inputSTB = document.getElementById("stb");
+                        var radioGpinoy = document.getElementById("gpinoy");
+                        var radioGsatHD = document.getElementById("gsathd");
+                        var radioCignal = document.getElementById("cignal");
+                        var radioSatlite = document.getElementById("satlite");
+                        var stb_error = document.getElementById("stb_error");
+                        var stb_label_input = document.getElementById("stb_label_input");
+
+
+
+                        if (radioGpinoy.checked) {
+                            inputBoxNumber.placeholder = "Serial Number (SN)";
+                            inputChipCCA.placeholder = "Chip ID";
+                            //inputSTB.style.display = "none";
+                            stb_error.style.display = "none";
+                            stb_label_input.style.display = "none";
+                        } else if (radioGsatHD.checked) {
+                            inputBoxNumber.placeholder = "Serial Number (SN) / Access ID";
+                            inputChipCCA.placeholder = "Chip ID";
+                            //inputSTB.style.display = "none";
+                            stb_error.style.display = "none";
+                            stb_label_input.style.display = "none";
+                        } else if (radioCignal.checked) {
+                            inputBoxNumber.placeholder = "Account No.";
+                            inputChipCCA.placeholder = "CCA No.";
+                            //inputSTB.style.display = "block";
+                            //stb_label_input.style.display = "block";
+                            stb_label_input.style.display = "block";
+                        } else if (radioSatlite.checked) {
+                            inputBoxNumber.placeholder = "Account No.";
+                            inputChipCCA.placeholder = "CCA No.";
+                            //inputSTB.style.display = "block";
+                            //stb_label_input.style.display = "block";
+                            stb_label_input.style.display = "block";
+                        }
+                    }
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                    // Check if there is a stored value for 'boxtype' in local storage
+                    var storedValue = localStorage.getItem("boxtype");
+                    if (storedValue) {
+                        // Retrieve the radio button element based on the stored value and set it as checked
+                        var radio = document.querySelector('input[name="boxtype"][value="' + storedValue + '"]');
+                        if (radio) {
+                        radio.checked = true;
+                        }
+                    }
+
+                    // Listen for change event on radio buttons
+                    var radios = document.querySelectorAll('input[name="boxtype"]');
+                    radios.forEach(function(radio) {
+                        radio.addEventListener("change", function() {
+                        // Store the selected value in local storage
+                        localStorage.setItem("boxtype", this.value);
+                        });
+                    });
+
+                    toggleInput();
+                    });
+
+
+                    </script>

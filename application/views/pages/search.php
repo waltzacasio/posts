@@ -37,7 +37,7 @@
       <th scope="col">Box Type</th>
       <th scope="col">Box Number</th>
       <th scope="col">Transaction Type</th>
-      <th scope="col">Date of Purchase</th>
+      <th scope="col">Date of Transaction</th>
       <th scope="col">Installer</th>
       <th scope="col">Remarks</th>
       <th scope="col">Actions</th>

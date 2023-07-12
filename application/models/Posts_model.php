@@ -163,7 +163,7 @@ class Posts_model extends CI_Model{
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
-                'chipid' => $this->input->post('chipcca'),
+                'chipid' => $this->input->post('chipid'),
                 'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
@@ -179,7 +179,7 @@ class Posts_model extends CI_Model{
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
-                'chipid' => $this->input->post('chipcca'),
+                'chipid' => $this->input->post('chipid'),
                 'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
@@ -195,7 +195,7 @@ class Posts_model extends CI_Model{
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
-                'cca' => $this->input->post('chipcca'),
+                'cca' => $this->input->post('cca'),
                 'stb' => $this->input->post('stb'),
                 'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
@@ -212,8 +212,8 @@ class Posts_model extends CI_Model{
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
-                'stb' => $this->input->post('chipcca'),
-                'cca' => $this->input->post('stb'),
+                'cca' => $this->input->post('cca'),
+                'stb' => $this->input->post('stb'),
                 'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
@@ -241,7 +241,93 @@ class Posts_model extends CI_Model{
 
     public function update_post(){
 
-        $id = $this->input->post('id');
+        $boxtype = $this->input->post('boxtype');
+
+        if ($boxtype == "gpinoy") {
+
+            $boxnumber = $this->input->post('boxnumber');
+
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'chipid' => $this->input->post('chipid'),
+                'transactionType' => $this->input->post('transactiontype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            $this->db->where('boxtype', $boxtype);
+            $this->db->where('boxnumber', $boxnumber);
+            return $this->db->update('gpinoy', $data);
+
+        } else if ($boxtype == "gsathd") {
+
+            $boxnumber = $this->input->post('boxnumber');
+
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'chipid' => $this->input->post('chipid'),
+                'transactionType' => $this->input->post('transactiontype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            $this->db->where('boxtype', $boxtype);
+            $this->db->where('boxnumber', $boxnumber);
+            return $this->db->update('gsathd', $data);
+
+        } else if ($boxtype == "cignal") {
+
+            $boxnumber = $this->input->post('boxnumber');
+
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'cca' => $this->input->post('cca'),
+                'stb' => $this->input->post('stb'),
+                'transactionType' => $this->input->post('transactiontype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            $this->db->where('boxtype', $boxtype);
+            $this->db->where('boxnumber', $boxnumber);
+            return $this->db->update('cignal', $data);
+
+        } else if ($boxtype == "satlite") {
+
+            $boxnumber = $this->input->post('boxnumber');
+
+            $data = array(
+                'firstName' => $this->input->post('firstname'),
+                'lastName' => $this->input->post('lastname'),
+                'address' => $this->input->post('address'),
+                'cca' => $this->input->post('cca'),
+                'stb' => $this->input->post('stb'),
+                'transactionType' => $this->input->post('transactiontype'),
+                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'contact' => $this->input->post('contact'),
+                'installer' => $this->input->post('installer'),
+                'remarks' => $this->input->post('remarks')
+            );
+
+            $this->db->where('boxtype', $boxtype);
+            $this->db->where('boxnumber', $boxnumber);
+            return $this->db->update('satlite', $data);
+        } 
+
+
+        /*$id = $this->input->post('id');
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => url_title($this->input->post('title'), '-', true),
@@ -250,7 +336,7 @@ class Posts_model extends CI_Model{
         );
 
         $this->db->where('id', $id);
-        return $this->db->update ('post', $data);
+        return $this->db->update ('post', $data);*/
     }
 
 

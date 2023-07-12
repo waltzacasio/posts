@@ -173,8 +173,9 @@ public function add() {
     $this->form_validation->set_rules('lastname','Last Name','required');
     $this->form_validation->set_rules('address','Address','required');
     $this->form_validation->set_rules('boxnumber','Box Number','required');
-    $this->form_validation->set_rules('chipcca','Chip ID / CCA No.','required');
-    $this->form_validation->set_rules('stb','STB ID','required');
+    //$this->form_validation->set_rules('chipid','Chip ID','required');
+    //$this->form_validation->set_rules('cca','CCA No.','required');
+    //$this->form_validation->set_rules('stb','STB ID','required');
     $this->form_validation->set_rules('transactiontype','Transaction Type','required');
     $this->form_validation->set_rules('dateofpurchase','Date Of Transaction','required');
     $this->form_validation->set_rules('installer','Installer','required');
@@ -209,6 +210,7 @@ public function add() {
 
         $this->Posts_model->insert_post();
         $this->session->set_flashdata('post_added','New post was added');
+
         redirect(base_url());
 
     }

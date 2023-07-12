@@ -21,9 +21,9 @@
 
 <p><b>Transaction Type : </b> <?= $transactionType; ?></p>
 
-<p><b>Date Of Purchase : </b> <?= $dateOfPurchase; ?></p>
+<p><b>Date Of Transaction : </b> <?= $dateOfPurchase; ?></p>
 
-<p><b>Type :</b> <?= $type; ?></p>
+<span id="type"><p><b>Type :</b> <?= $type; ?></p></span>
 
 <p><b>Contact Number : </b> <?= $contact; ?></p>
 
@@ -51,19 +51,27 @@
                 var ccaLabel = document.getElementById("cca-label");
                 var stbLabel = document.getElementById("stb-label");
                 var boxnumberLabel = document.getElementById("boxnumber-label");
+                var type = document.getElementById("type");
 
 
                 if (boxType === "gpinoy") {
                     ccaLabel.style.display = "none";
                     stbLabel.style.display = "none";
+                    type.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) :";
 
                 } else if (boxType === "gsathd") {
                     ccaLabel.style.display = "none";
                     stbLabel.style.display = "none";
+                    type.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) / Access ID :";
 
-                } else if (boxType === "cignal" || boxType === "satlite") {
+                } else if (boxType === "satlite") {
+                    chipIdLabel.style.display = "none";
+                    type.style.display = "none";
+                    boxnumberLabel.innerHTML = "Box Number / Account No. :";
+
+                } else if (boxType === "cignal") {
                     chipIdLabel.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Account No. :";
                 }

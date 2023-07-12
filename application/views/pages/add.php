@@ -14,28 +14,28 @@
                 <b>Select Box Type :</b>
                 
                 <div class="form-check form-check-inline">
-                <input class="btn-check" type="radio" name="boxtype" value="gpinoy" id="gpinoy" onchange="toggleInput()">
+                <input class="btn-check" type="radio" name="boxtype" value="gpinoy" id="gpinoy" onchange="toggleInput()" <?php if ($selectedBoxType === 'gpinoy') { echo 'checked'; } ?>>
                 <label class="btn btn-outline-success" for="gpinoy">
                     Gpinoy
                 </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                <input class="btn-check" type="radio" name="boxtype" value="gsathd" id="gsathd" onchange="toggleInput()">
+                <input class="btn-check" type="radio" name="boxtype" value="gsathd" id="gsathd" onchange="toggleInput()" <?php if ($selectedBoxType === 'gsathd') { echo 'checked'; } ?>>
                 <label class="btn btn-outline-primary" for="gsathd">
                     GSAT HD
                 </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                <input class="btn-check" type="radio" name="boxtype" value="cignal" id="cignal" onchange="toggleInput()">
+                <input class="btn-check" type="radio" name="boxtype" value="cignal" id="cignal" onchange="toggleInput()" <?php if ($selectedBoxType === 'cignal') { echo 'checked'; } ?>>
                 <label class="btn btn-outline-danger" for="cignal">
                     Cignal
                 </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                <input class="btn-check" type="radio" name="boxtype" value="satlite" id="satlite" onchange="toggleInput()">
+                <input class="btn-check" type="radio" name="boxtype" value="satlite" id="satlite" onchange="toggleInput()" <?php if ($selectedBoxType === 'satlite') { echo 'checked'; } ?>>
                 <label class="btn btn-outline-warning" for="satlite">
                     Satlite
                 </label>
@@ -62,18 +62,26 @@
                 <input type="text" id="boxnumber" name="boxnumber" class="form-control"  placeholder="Enter Box / SN / Acc No." value="<?= set_value('boxnumber');?>"> 
                 <?php echo form_error('boxnumber'); ?>
                 <br>
-                <b>Chip ID / CCA No. :</b>
-                <input type="text" id="chipcca" name="chipcca" class="form-control"  placeholder="Enter Chip ID / CCA No." value="<?= set_value('chipcca');?>">
-                <?php echo form_error('chipcca'); ?>
-                <br> 
-                <div id="stb_label_input">
-                <b id="stb_label_add">STB ID :</b>
-                <input type="text" id="stb" name="stb" class="form-control"  placeholder="Enter STB ID" value="<?= set_value('stb');?>">
                 
-                <?php if ($selectedBoxType === 'cignal' || $selectedBoxType === 'satlite') {if (form_error('stb')): ?>
-                <div id="stb_error" class="error"><?php echo form_error('stb'); ?></div>
-                 <?php endif;} ?>
+                <div id="chipid-label"><b>Chip ID :</b>
+                <input type="text" id="chipid" name="chipid" class="form-control"  placeholder="Enter Chip ID" value="<?= set_value('chipid');?>">
+                <?php// if ($selectedBoxType === 'gpinoy' || $selectedBoxType === 'gsathd') {echo form_error('chipid');}?>
+                <br> 
+                </div>
+
+                <div id="stb-cca-label">
+
+                <b id="cca-label">CCA No. :</b>
+                <input type="text" id="cca" name="cca" class="form-control"  placeholder="Enter CCA No." value="<?= set_value('cca');?>">
+                <?php// if ($selectedBoxType === 'cignal' || $selectedBoxType === 'saltite') {echo form_error('cca');}?>
+                <br> 
+
+
+                <b>STB ID :</b>
+                <input type="text" id="stb" name="stb" class="form-control"  placeholder="Enter STB ID" value="<?= set_value('stb');?>">
+                <?php// if ($selectedBoxType === 'cignal' || $selectedBoxType === 'saltite') {echo form_error('stb');}?>
                 <br>
+            
                 </div>
                 
                 <!-- purchase type -->
@@ -134,70 +142,42 @@
 
 </div>
 
+
                     <script>
 
                     function toggleInput() {
                         var inputBoxNumber = document.getElementById("boxnumber");
-                        var inputChipCCA = document.getElementById("chipcca");
-                        //var inputSTB = document.getElementById("stb");
                         var radioGpinoy = document.getElementById("gpinoy");
                         var radioGsatHD = document.getElementById("gsathd");
                         var radioCignal = document.getElementById("cignal");
                         var radioSatlite = document.getElementById("satlite");
-                        var stb_error = document.getElementById("stb_error");
-                        var stb_label_input = document.getElementById("stb_label_input");
+                        var stbccaLabel = document.getElementById("stb-cca-label");
+                        var chipidLabel = document.getElementById("chipid-label");
 
-
-
+                        chipidLabel.style.display = "block";    
+                        
                         if (radioGpinoy.checked) {
-                            inputBoxNumber.placeholder = "Serial Number (SN)";
-                            inputChipCCA.placeholder = "Chip ID";
-                            //inputSTB.style.display = "none";
-                            stb_error.style.display = "none";
-                            stb_label_input.style.display = "none";
+                            inputBoxNumber.placeholder = "Enter Serial Number (SN)";
+                            chipidLabel.style.display = "block";
+                            stbccaLabel.style.display = "none";
+
                         } else if (radioGsatHD.checked) {
-                            inputBoxNumber.placeholder = "Serial Number (SN) / Access ID";
-                            inputChipCCA.placeholder = "Chip ID";
-                            //inputSTB.style.display = "none";
-                            stb_error.style.display = "none";
-                            stb_label_input.style.display = "none";
+                            inputBoxNumber.placeholder = "Enter Serial Number (SN) / Access ID";
+                            chipidLabel.style.display = "block";
+                            stbccaLabel.style.display = "none";
+
                         } else if (radioCignal.checked) {
-                            inputBoxNumber.placeholder = "Account No.";
-                            inputChipCCA.placeholder = "CCA No.";
-                            //inputSTB.style.display = "block";
-                            //stb_label_input.style.display = "block";
-                            stb_label_input.style.display = "block";
+                            inputBoxNumber.placeholder = "Enter Account No.";
+                            stbccaLabel.style.display = "block";
+                            chipidLabel.style.display = "none";
+
                         } else if (radioSatlite.checked) {
-                            inputBoxNumber.placeholder = "Account No.";
-                            inputChipCCA.placeholder = "CCA No.";
-                            //inputSTB.style.display = "block";
-                            //stb_label_input.style.display = "block";
-                            stb_label_input.style.display = "block";
+                            inputBoxNumber.placeholder = "Enter Account No.";
+                            stbccaLabel.style.display = "block";
+                            chipidLabel.style.display = "none";
                         }
                     }
-
-                    document.addEventListener("DOMContentLoaded", function() {
-                    // Check if there is a stored value for 'boxtype' in local storage
-                    var storedValue = localStorage.getItem("boxtype");
-                    if (storedValue) {
-                        // Retrieve the radio button element based on the stored value and set it as checked
-                        var radio = document.querySelector('input[name="boxtype"][value="' + storedValue + '"]');
-                        if (radio) {
-                        radio.checked = true;
-                        }
-                    }
-
-                    // Listen for change event on radio buttons
-                    var radios = document.querySelectorAll('input[name="boxtype"]');
-                    radios.forEach(function(radio) {
-                        radio.addEventListener("change", function() {
-                        // Store the selected value in local storage
-                        localStorage.setItem("boxtype", this.value);
-                        });
-                    });
 
                     toggleInput();
-                    });
-
 
                     </script>

@@ -3,11 +3,6 @@
 <div class="row">
 
     <div class="col-lg-12">
-
-
-
-
-
     
                 <?= form_open('add');?>
 

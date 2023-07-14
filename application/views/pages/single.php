@@ -1,3 +1,12 @@
+<?php if($this->session->flashdata('post_added')) : ?>
+    <?= '<p class="alert alert-success">'.$this->session->flashdata('post_added').'</p>';?>
+<?php endif;?>
+
+<?php if($this->session->flashdata('post_updated')) : ?>
+    <?= '<p class="alert alert-success">'.$this->session->flashdata('post_updated').'</p>';?>
+
+<?php endif;?>
+
 <h1><?= $title;?></h1>
 <hr>
 <p><b>First Name : </b><?= $firstName;?></p>
@@ -8,7 +17,7 @@
 
 <p><b>Box Type : </b> <?php if($this->uri->segment(2) == "gpinoy"){echo "GPinoy";}
       else if($this->uri->segment(2) == "gsathd"){echo "GSat HD";}
-      else if ($this->uri->segment(2) == "cignal"){echo "Cignal";}
+      else if ($this->uri->segment(2) == "cignal"){echo "Cignal " . $type;}
       else if ($this->uri->segment(2) == "satlite"){echo "Satlite";}?></p>
 
 <p><b id="boxnumber-label">Box Number : </b> <?= $boxNumber; ?></p>
@@ -22,8 +31,6 @@
 <p><b>Transaction Type : </b> <?= $transactionType; ?></p>
 
 <p><b>Date Of Transaction : </b> <?= $dateOfPurchase; ?></p>
-
-<span id="type"><p><b>Type :</b> <?= $type; ?></p></span>
 
 <p><b>Contact Number : </b> <?= $contact; ?></p>
 
@@ -51,24 +58,20 @@
                 var ccaLabel = document.getElementById("cca-label");
                 var stbLabel = document.getElementById("stb-label");
                 var boxnumberLabel = document.getElementById("boxnumber-label");
-                var type = document.getElementById("type");
 
 
                 if (boxType === "gpinoy") {
                     ccaLabel.style.display = "none";
                     stbLabel.style.display = "none";
-                    type.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) :";
 
                 } else if (boxType === "gsathd") {
                     ccaLabel.style.display = "none";
                     stbLabel.style.display = "none";
-                    type.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Serial Number (SN) / Access ID :";
 
                 } else if (boxType === "satlite") {
                     chipIdLabel.style.display = "none";
-                    type.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Account No. :";
 
                 } else if (boxType === "cignal") {

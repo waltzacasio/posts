@@ -243,89 +243,77 @@ class Posts_model extends CI_Model{
 
         $boxtype = $this->input->post('boxtype');
 
+        echo "Box Type: " . $boxtype;
+
         if ($boxtype == "gpinoy") {
 
-            $boxnumber = $this->input->post('boxnumber');
+            $id = $this->input->post('id');
 
             $data = array(
                 'firstName' => $this->input->post('firstname'),
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
-                'chipid' => $this->input->post('chipid'),
-                'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
             );
 
-            $this->db->where('boxtype', $boxtype);
-            $this->db->where('boxnumber', $boxnumber);
-            return $this->db->update('gpinoy', $data);
+            //$this->db->where('boxtype', $boxtype);
+            $this->db->where('id', $id);
+            $this->db->update('gpinoy', $data);
 
         } else if ($boxtype == "gsathd") {
-
-            $boxnumber = $this->input->post('boxnumber');
+            
+            $id = $this->input->post('id');
 
             $data = array(
                 'firstName' => $this->input->post('firstname'),
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
-                'chipid' => $this->input->post('chipid'),
-                'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
             );
-
-            $this->db->where('boxtype', $boxtype);
-            $this->db->where('boxnumber', $boxnumber);
-            return $this->db->update('gsathd', $data);
+            $this->db->where('id', $id);
+            $this->db->update('gsathd', $data);
 
         } else if ($boxtype == "cignal") {
-
-            $boxnumber = $this->input->post('boxnumber');
+            
+            $id = $this->input->post('id');
 
             $data = array(
                 'firstName' => $this->input->post('firstname'),
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
-                'cca' => $this->input->post('cca'),
-                'stb' => $this->input->post('stb'),
-                'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
             );
-
-            $this->db->where('boxtype', $boxtype);
-            $this->db->where('boxnumber', $boxnumber);
-            return $this->db->update('cignal', $data);
+            $this->db->where('id', $id);
+            $this->db->update('cignal', $data);
 
         } else if ($boxtype == "satlite") {
-
-            $boxnumber = $this->input->post('boxnumber');
+            
+            $id = $this->input->post('id');
 
             $data = array(
                 'firstName' => $this->input->post('firstname'),
                 'lastName' => $this->input->post('lastname'),
                 'address' => $this->input->post('address'),
-                'cca' => $this->input->post('cca'),
-                'stb' => $this->input->post('stb'),
-                'transactionType' => $this->input->post('transactiontype'),
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
             );
-
-            $this->db->where('boxtype', $boxtype);
-            $this->db->where('boxnumber', $boxnumber);
-            return $this->db->update('satlite', $data);
+            $this->db->where('id', $id);
+            $this->db->update('satlite', $data);
         } 
+        
 
+       }    
 
         /*$id = $this->input->post('id');
         $data = array(
@@ -337,17 +325,39 @@ class Posts_model extends CI_Model{
 
         $this->db->where('id', $id);
         return $this->db->update ('post', $data);*/
-    }
+ 
 
 
     public function delete_post() {
 
-        $id = $this->input->post('id');
-        $this->db->where('id', $id);
-        $this->db->delete('post');
+        //echo $this->input->post('id');
+        $boxtype = $this->input->post('boxtype');
 
-        return true;
-        
+        if ($boxtype == 'gpinoy') {
+            $id = $this->input->post('id');
+
+            $this->db->where('id', $id);
+            $this->db->delete('gpinoy');
+
+        } else if ($boxtype == 'gsathd') {
+            $id = $this->input->post('id');
+
+            $this->db->where('id', $id);
+            $this->db->delete('gsathd');
+
+        } else if ($boxtype == 'cignal') {
+            $id = $this->input->post('id');
+
+            $this->db->where('id', $id);
+            $this->db->delete('cignal');
+
+        } else if ($boxtype == 'satlite') {
+            $id = $this->input->post('id');
+
+            $this->db->where('id', $id);
+            $this->db->delete('satlite');
+
+        }
     }
 
 

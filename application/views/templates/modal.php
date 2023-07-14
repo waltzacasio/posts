@@ -9,7 +9,9 @@
       <div class="modal-body text-center">
         <?= form_open('delete');?>
             <h2>Are you sure you want to delete?</h2>
+                <input type="hidden" value="<?= $this->uri->segment(2);?>" name="boxtype">
                 <input type="hidden" value="<?= $id;?>" name="id">
+
 
 
 

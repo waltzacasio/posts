@@ -18,14 +18,6 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
 
-<!--
-<ul class="list-group">
-    <?php/* foreach($posts as $row){*/?>
-    <a class="list-group-item list-group-item-action" href="<?= base_url();?><?= $row['slug'];?>"><?= $row['title'];?></a>  
-    <?php /*}*/ ?>
-</ul>
-    -->
-
 <br/>
 
 <table class="table table-hover">

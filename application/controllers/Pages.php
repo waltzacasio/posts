@@ -173,9 +173,6 @@ public function add() {
     $this->form_validation->set_rules('lastname','Last Name','required');
     $this->form_validation->set_rules('address','Address','required');
     $this->form_validation->set_rules('boxnumber','Box Number','required');
-    //$this->form_validation->set_rules('chipid','Chip ID','required');
-    //$this->form_validation->set_rules('cca','CCA No.','required');
-    //$this->form_validation->set_rules('stb','STB ID','required');
     $this->form_validation->set_rules('transactiontype','Transaction Type','required');
     $this->form_validation->set_rules('dateofpurchase','Date Of Transaction','required');
     $this->form_validation->set_rules('installer','Installer','required');
@@ -209,9 +206,10 @@ public function add() {
     }else{
 
         $this->Posts_model->insert_post();
-        $this->session->set_flashdata('post_added','New post was added');
+        $this->session->set_flashdata('post_added','New ' . $this->input->post('boxtype') . ' record was added!');
 
-        redirect(base_url());
+        //redirect(base_url());
+        redirect(base_url() . 'details/' . $this->input->post('boxtype') ."/" . $this->input->post('boxnumber'));
 
     }
     
@@ -221,8 +219,10 @@ public function add() {
 public function edit($param1, $param2){
 
     $this->form_validation->set_error_delimiters('<div class="alert alert-danger">','</div>');
-    $this->form_validation->set_rules('title','Title','required');
-    $this->form_validation->set_rules('body','body','required');
+    $this->form_validation->set_rules('firstname','First Name','required');
+    $this->form_validation->set_rules('lastname','Last Name','required');
+
+    
     if($this->form_validation->run() == FALSE){
             
         $page ="edit";
@@ -230,8 +230,8 @@ public function edit($param1, $param2){
         if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
             show_404();
         }
-
-        $data['posts'] = $this->Posts_model->get_posts_single($param1, $param2);
+//Populate form
+            $data['posts'] = $this->Posts_model->get_posts_edit($param1, $param2);
             $data['title'] = "Edit Customer Details";
             $data['firstName'] = $data['posts']['firstName'] ?? null;
             $data['lastName'] = $data['posts']['lastName'] ?? null;
@@ -248,14 +248,7 @@ public function edit($param1, $param2){
             $data['installer'] = $data['posts']['installer'] ?? null;
             $data['remarks'] = $data['posts']['remarks'] ?? null;
 
-        /*$data['title'] = "Edit Customer Details";
-        $data['posts'] = $this->Posts_model->get_posts_edit($param1, $param2);
-        $data['title'] = $data['posts']['title'] ?? null;
-        $data['body'] = $data['posts']['body'] ?? null;
-        $data['date'] = $data['posts']['date_published'] ?? null;
-        $data['id'] = $data['posts']['id'] ?? null;*/
-
-
+            $data['id'] = $data['posts']['id'] ?? null;
 
         $this->load->view('templates/header');
         $this->load->view('pages/'.$page, $data);
@@ -264,8 +257,8 @@ public function edit($param1, $param2){
     }else{
 
         $this->Posts_model->update_post();
-        $this->session->set_flashdata('post_updated','Post was Updated');
-        redirect(base_url().'edit/'.$param);
+        $this->session->set_flashdata('post_updated','This customer was updated!');
+        redirect(base_url() . 'details/' . $param1 ."/" . $param2);
 
     }
 

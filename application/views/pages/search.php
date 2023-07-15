@@ -62,3 +62,4 @@
 <div class="alert alert-secondary" role="alert">
     Total post is <?= $total;?>.
 </div>
+

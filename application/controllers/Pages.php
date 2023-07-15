@@ -176,7 +176,25 @@ public function add() {
     $this->form_validation->set_rules('transactiontype','Transaction Type','required');
     $this->form_validation->set_rules('dateofpurchase','Date Of Transaction','required');
     $this->form_validation->set_rules('installer','Installer','required');
-    
+
+    if ($this->input->post('boxtype') == 'gpinoy') {
+        $this->form_validation->set_rules('boxnumber', 'GPinoy Box Number', 'is_unique[gpinoy.boxNumber]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('chipid', 'GPinoy Chip ID', 'is_unique[gpinoy.chipid]', array('is_unique' => 'The {field} already exists.'));
+
+    } else if ($this->input->post('boxtype') == 'gsathd') {
+        $this->form_validation->set_rules('boxnumber', 'GSat HD Box Number', 'is_unique[gsathd.boxNumber]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('chipid', 'GSat HD Chip ID', 'is_unique[gsathd.chipid]', array('is_unique' => 'The {field} already exists.'));
+
+    } else if ($this->input->post('boxtype') == 'cignal') {
+        $this->form_validation->set_rules('boxnumber', 'Cignal Box Number', 'is_unique[cignal.boxNumber]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('cca', 'Cignal CCA No.', 'is_unique[cignal.cca]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('stb', 'Cignal STB ID', 'is_unique[cignal.stb]', array('is_unique' => 'The {field} already exists.'));
+
+    } else if ($this->input->post('boxtype') == 'satlite') {
+        $this->form_validation->set_rules('boxnumber', 'Satlite Box Number', 'is_unique[satlite.boxNumber]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('cca', 'Satlite CCA No.', 'is_unique[satlite.cca]', array('is_unique' => 'The {field} already exists.'));
+        $this->form_validation->set_rules('stb', 'Satlite STB ID', 'is_unique[satlite.stb]', array('is_unique' => 'The {field} already exists.'));
+    } 
 
     if($this->form_validation->run() == FALSE){
             
@@ -199,6 +217,10 @@ public function add() {
 
         $data['title'] = "Add New Record";
 
+        if (!$this->input->post()) {
+            $this->session->unset_userdata('selected_boxtype');
+        }
+
         $this->load->view('templates/header');
         $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer');
@@ -207,6 +229,7 @@ public function add() {
 
         $this->Posts_model->insert_post();
         $this->session->set_flashdata('post_added','New ' . $this->input->post('boxtype') . ' record was added!');
+        $this->session->unset_userdata('selected_boxtype');
 
         //redirect(base_url());
         redirect(base_url() . 'details/' . $this->input->post('boxtype') ."/" . $this->input->post('boxnumber'));

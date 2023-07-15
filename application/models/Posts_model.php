@@ -18,8 +18,10 @@ class Posts_model extends CI_Model{
 
         $keywords = explode(' ', $searchedWords);
         //query gpinoy table
-        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
+        //$this->db->select('"12thColumn" AS columnFill', FALSE); // Include table name as alias
         $this->db->select('"GPinoy" AS tableName', FALSE); // Include table name as alias
+
         $this->db->from('gpinoy');
 
         foreach ($keywords as $word) {
@@ -28,8 +30,10 @@ class Posts_model extends CI_Model{
             $this->db->or_like('firstName', $word);
             $this->db->or_like('address', $word);
             $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('chipid', $word);
             $this->db->or_like('transactionType', $word);
             $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
             // Add more columns if needed
@@ -39,8 +43,10 @@ class Posts_model extends CI_Model{
         $query1 = $this->db->get_compiled_select();
 
         //query gsathd table
-        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
+        //$this->db->select('"12thColumn" AS columnFill', FALSE); // Include table name as alias
         $this->db->select('"GSat HD" AS tableName', FALSE); // Include table name as alias
+
         $this->db->from('gsathd');
 
         foreach ($keywords as $word) {
@@ -49,8 +55,10 @@ class Posts_model extends CI_Model{
             $this->db->or_like('firstName', $word);
             $this->db->or_like('address', $word);
             $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('chipid', $word);
             $this->db->or_like('transactionType', $word);
             $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
             // Add more columns if needed
@@ -60,7 +68,7 @@ class Posts_model extends CI_Model{
         $query2 = $this->db->get_compiled_select();
 
         //query cignal table
-        $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks');
         $this->db->select('"Cignal" AS tableName', FALSE); // Include table name as alias
         $this->db->from('cignal');
 
@@ -70,8 +78,11 @@ class Posts_model extends CI_Model{
             $this->db->or_like('firstName', $word);
             $this->db->or_like('address', $word);
             $this->db->or_like('boxNumber', $word);
+            $this->db->or_like('cca', $word);
+            $this->db->or_like('stb', $word);
             $this->db->or_like('transactionType', $word);
             $this->db->or_like('dateOfPurchase', $word);
+            $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
             // Add more columns if needed
@@ -81,7 +92,7 @@ class Posts_model extends CI_Model{
         $query3 = $this->db->get_compiled_select();
 
             //query cignal table
-            $this->db->select('lastName, firstName, address, boxNumber, transactionType, dateOfPurchase, installer, remarks');
+            $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks');
             $this->db->select('"Satlite" AS tableName', FALSE); // Include table name as alias
             $this->db->from('satlite');
     
@@ -91,8 +102,11 @@ class Posts_model extends CI_Model{
                 $this->db->or_like('firstName', $word);
                 $this->db->or_like('address', $word);
                 $this->db->or_like('boxNumber', $word);
+                $this->db->or_like('cca', $word);
+                $this->db->or_like('stb', $word);
                 $this->db->or_like('transactionType', $word);
                 $this->db->or_like('dateOfPurchase', $word);
+                $this->db->or_like('contact', $word);
                 $this->db->or_like('installer', $word);
                 $this->db->or_like('remarks', $word);
                 // Add more columns if needed

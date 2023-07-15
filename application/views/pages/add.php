@@ -60,7 +60,7 @@
                 
                 <div id="chipid-label"><b>Chip ID :</b>
                 <input type="text" id="chipid" name="chipid" class="form-control"  placeholder="Enter Chip ID" value="<?= set_value('chipid');?>">
-                <?php// if ($selectedBoxType === 'gpinoy' || $selectedBoxType === 'gsathd') {echo form_error('chipid');}?>
+                <?php echo form_error('chipid'); ?>
                 <br> 
                 </div>
 
@@ -68,13 +68,13 @@
 
                 <b id="cca-label">CCA No. :</b>
                 <input type="text" id="cca" name="cca" class="form-control"  placeholder="Enter CCA No." value="<?= set_value('cca');?>">
-                <?php// if ($selectedBoxType === 'cignal' || $selectedBoxType === 'saltite') {echo form_error('cca');}?>
+                <?php echo form_error('cca'); ?>
                 <br> 
 
 
                 <b>STB ID :</b>
                 <input type="text" id="stb" name="stb" class="form-control"  placeholder="Enter STB ID" value="<?= set_value('stb');?>">
-                <?php// if ($selectedBoxType === 'cignal' || $selectedBoxType === 'saltite') {echo form_error('stb');}?>
+                <?php echo form_error('stb'); ?>
                 <br>
             
                 </div>
@@ -123,7 +123,7 @@
                 <br>
             <div class="form-group">
                 <b>Remarks :</b>
-                <textarea name="remarks" id="" cols="30" rows="5" class="form-control" placeholder="Enter remarks" value="<?= set_value('remarks');?>"></textarea>
+                <textarea name="remarks" id="" cols="30" rows="5" class="form-control" placeholder="Enter remarks"><?php echo set_value('remarks'); ?></textarea>
             </div>
 
         </div>

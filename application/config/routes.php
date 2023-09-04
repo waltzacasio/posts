@@ -57,8 +57,12 @@ $route['logout'] = 'pages/logout';
 
     
 $route['add'] = 'pages/add';
+
 $route['edit/(:any)/(:any)'] = 'pages/edit/$1/$2';
+$route['edit_history'] = 'pages/edit_history';
+
 $route['delete'] = 'pages/delete';
+$route['deletedrecords'] = 'pages/deletedrecords';
 
 $route['search'] = 'pages/search/';
 $route['search/(:any)'] = 'pages/search/$1';
@@ -67,6 +71,7 @@ $route['search/(:any)/(:num)'] = 'pages/search/$1/$2';
 $route['details/(:any)/(:any)'] = 'pages/details/$1/$2';
 
 $route['default_controller'] = 'pages/view';
+
 
 $route['(:any)'] = 'pages/view/$1';
 

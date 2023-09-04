@@ -14,15 +14,77 @@ class Posts_model extends CI_Model{
 
     }
 
+    private function does_view_exists($viewName) {
+        $query = $this->db->query("SHOW TABLES LIKE '$viewName'");
+        return $query->num_rows() > 0;
+    }
+
     public function get_posts_search($searchedWords, $limit = 0, $offset = 0){
 
-        $keywords = explode(' ', $searchedWords);
-        //query gpinoy table
-        $this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
-        //$this->db->select('"12thColumn" AS columnFill', FALSE); // Include table name as alias
-        $this->db->select('"GPinoy" AS tableName', FALSE); // Include table name as alias
+        // Start creating Gpinoy View
+        $gpinoyView = 'gpinoyView';
 
-        $this->db->from('gpinoy');
+        // Check if the view exists in the database
+        $doesGpinoyViewExists = $this->does_view_exists($gpinoyView);
+
+        if (!$doesGpinoyViewExists) {
+            $createViewQuery = "CREATE VIEW $gpinoyView AS
+                SELECT lastName, firstName, address, boxNumber, chipid, '12thColumn' AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks, 'GPinoy' AS tableName
+                FROM gpinoy";
+            $this->db->query($createViewQuery);
+        }
+
+        // Start creating GSAT HD View
+        $gsathdView = 'gsathdView';
+
+        // Check if the view exists in the database
+        $doesGsatHDViewExists = $this->does_view_exists($gsathdView);
+
+        if (!$doesGsatHDViewExists) {
+            $createViewQuery = "CREATE VIEW $gsathdView AS
+                SELECT lastName, firstName, address, boxNumber, chipid, '12thColumn' AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks, 'GSat HD' AS tableName
+                FROM gsathd";
+            $this->db->query($createViewQuery);
+        }
+
+        // Start creating Cignal View
+        $cignalView = 'cignalView';
+
+        // Check if the view exists in the database
+        $doesCignalViewExists = $this->does_view_exists($cignalView);
+
+        if (!$doesCignalViewExists) {
+            $createViewQuery = "CREATE VIEW $cignalView AS
+                SELECT lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks, 'Cignal' AS tableName
+                FROM cignal";
+            $this->db->query($createViewQuery);
+        }
+
+        // Start creating Satlite View
+        $satliteView = 'satliteView';
+
+        // Check if the view exists in the database
+        $doesSatliteViewExists = $this->does_view_exists($satliteView);
+
+        if (!$doesSatliteViewExists) {
+            $createViewQuery = "CREATE VIEW $satliteView AS
+                SELECT lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks, 'Satlite' AS tableName
+                FROM satlite";
+            $this->db->query($createViewQuery);
+        }
+
+        
+
+        $keywords = explode(' ', $searchedWords);
+        
+        //query gpinoy table
+        //$this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, chipid, columnFill, transactionType, dateOfPurchase, contact, installer, remarks, tableName');
+        //$this->db->select('"12thColumn" AS columnFill', FALSE); // Include table name as alias
+        //$this->db->select('"GPinoy" AS tableName', FALSE); // Include table name as alias
+
+        //$this->db->from('gpinoy');
+        $this->db->from('gpinoyView');
 
         foreach ($keywords as $word) {
             $this->db->group_start();
@@ -36,6 +98,7 @@ class Posts_model extends CI_Model{
             $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
+            $this->db->or_like('tableName', $word, 'both');
             // Add more columns if needed
             $this->db->group_end();
         }
@@ -43,11 +106,12 @@ class Posts_model extends CI_Model{
         $query1 = $this->db->get_compiled_select();
 
         //query gsathd table
-        $this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
+        //$this->db->select('lastName, firstName, address, boxNumber, chipid, "12thColumn" AS columnFill, transactionType, dateOfPurchase, contact, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, chipid, columnFill, transactionType, dateOfPurchase, contact, installer, remarks, tableName');
         //$this->db->select('"12thColumn" AS columnFill', FALSE); // Include table name as alias
-        $this->db->select('"GSat HD" AS tableName', FALSE); // Include table name as alias
+        //$this->db->select('"GSat HD" AS tableName', FALSE); // Include table name as alias
 
-        $this->db->from('gsathd');
+        $this->db->from('gsathdView');
 
         foreach ($keywords as $word) {
             $this->db->group_start();
@@ -61,6 +125,7 @@ class Posts_model extends CI_Model{
             $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
+            $this->db->or_like('tableName', $word, 'both');
             // Add more columns if needed
             $this->db->group_end();
         }
@@ -68,9 +133,10 @@ class Posts_model extends CI_Model{
         $query2 = $this->db->get_compiled_select();
 
         //query cignal table
-        $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks');
-        $this->db->select('"Cignal" AS tableName', FALSE); // Include table name as alias
-        $this->db->from('cignal');
+        //$this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks');
+        $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks, tableName');
+        //$this->db->select('"Cignal" AS tableName', FALSE); // Include table name as alias
+        $this->db->from('cignalView');
 
         foreach ($keywords as $word) {
             $this->db->group_start();
@@ -85,6 +151,7 @@ class Posts_model extends CI_Model{
             $this->db->or_like('contact', $word);
             $this->db->or_like('installer', $word);
             $this->db->or_like('remarks', $word);
+            $this->db->or_like('tableName', $word, 'both');
             // Add more columns if needed
             $this->db->group_end();
         }
@@ -92,9 +159,9 @@ class Posts_model extends CI_Model{
         $query3 = $this->db->get_compiled_select();
 
             //query cignal table
-            $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks');
-            $this->db->select('"Satlite" AS tableName', FALSE); // Include table name as alias
-            $this->db->from('satlite');
+            $this->db->select('lastName, firstName, address, boxNumber, cca, stb, transactionType, dateOfPurchase, contact, installer, remarks, tableName');
+            //$this->db->select('"Satlite" AS tableName', FALSE); // Include table name as alias
+            $this->db->from('satliteView');
     
             foreach ($keywords as $word) {
                 $this->db->group_start();
@@ -109,6 +176,7 @@ class Posts_model extends CI_Model{
                 $this->db->or_like('contact', $word);
                 $this->db->or_like('installer', $word);
                 $this->db->or_like('remarks', $word);
+                $this->db->or_like('tableName', $word, 'both');
                 // Add more columns if needed
                 $this->db->group_end();
             }
@@ -159,27 +227,33 @@ class Posts_model extends CI_Model{
         return $result->row_array();
     }
 
-    /*public function get_posts_edit($param){
-
-        $this->db->where('id', $param);
-        $result = $this->db->get('post');
-
-        return $result->row_array();
-    }*/
+    function convertToMySQLDate($day, $month, $year) {
+        return $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
+    }
+    
 
     public function insert_post(){
 
         $boxtype = $this->input->post('boxtype');
 
         if ($boxtype == "gpinoy") {
+            // Assuming you have retrieved the day, month, and year values from the form
+            $day = $this->input->post('day');
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+
+            // Convert the date to MySQL date format
+            $dateOfPurchase = $this->convertToMySQLDate($day, $month, $year);
+
+
             $data = array(
-                'firstName' => $this->input->post('firstname'),
-                'lastName' => $this->input->post('lastname'),
+                'firstName' => strtoupper($this->input->post('firstname')),
+                'lastName' => strtoupper($this->input->post('lastname')),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
                 'chipid' => $this->input->post('chipid'),
                 'transactionType' => $this->input->post('transactiontype'),
-                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'dateOfPurchase' => $dateOfPurchase, // Insert the prepared date here
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
@@ -188,14 +262,21 @@ class Posts_model extends CI_Model{
             return $this->db->insert('gpinoy', $data);
 
         } else if ($boxtype == "gsathd") {
+
+            $day = $this->input->post('day');
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+
+            $dateOfPurchase = $this->convertToMySQLDate($day, $month, $year);
+
             $data = array(
-                'firstName' => $this->input->post('firstname'),
-                'lastName' => $this->input->post('lastname'),
+                'firstName' => strtoupper($this->input->post('firstname')),
+                'lastName' => strtoupper($this->input->post('lastname')),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
                 'chipid' => $this->input->post('chipid'),
                 'transactionType' => $this->input->post('transactiontype'),
-                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'dateOfPurchase' => $dateOfPurchase,
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
@@ -204,15 +285,22 @@ class Posts_model extends CI_Model{
             return $this->db->insert('gsathd', $data);
 
         } else if ($boxtype == "cignal") {
+
+            $day = $this->input->post('day');
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+
+            $dateOfPurchase = $this->convertToMySQLDate($day, $month, $year);
+
             $data = array(
-                'firstName' => $this->input->post('firstname'),
-                'lastName' => $this->input->post('lastname'),
+                'firstName' => strtoupper($this->input->post('firstname')),
+                'lastName' => strtoupper($this->input->post('lastname')),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
                 'cca' => $this->input->post('cca'),
                 'stb' => $this->input->post('stb'),
                 'transactionType' => $this->input->post('transactiontype'),
-                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'dateOfPurchase' => $dateOfPurchase,
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
@@ -221,15 +309,22 @@ class Posts_model extends CI_Model{
             return $this->db->insert('cignal', $data);
 
         } else if ($boxtype == "satlite") {
+
+            $day = $this->input->post('day');
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+
+            $dateOfPurchase = $this->convertToMySQLDate($day, $month, $year);
+
             $data = array(
-                'firstName' => $this->input->post('firstname'),
-                'lastName' => $this->input->post('lastname'),
+                'firstName' => strtoupper($this->input->post('firstname')),
+                'lastName' => strtoupper($this->input->post('lastname')),
                 'address' => $this->input->post('address'),
                 'boxNumber' => $this->input->post('boxnumber'),
                 'cca' => $this->input->post('cca'),
                 'stb' => $this->input->post('stb'),
                 'transactionType' => $this->input->post('transactiontype'),
-                'dateOfPurchase' => $this->input->post('dateofpurchase'),
+                'dateOfPurchase' => $dateOfPurchase,
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
                 'remarks' => $this->input->post('remarks')
@@ -237,19 +332,6 @@ class Posts_model extends CI_Model{
 
             return $this->db->insert('satlite', $data);
         } 
-
-
-
-
-
-
-        /*$data = array(
-            'title' => $this->input->post('title'),
-            'slug' => url_title($this->input->post('title'), '-', true),
-            'body' => $this->input->post('body')
-        );
-
-        return $this->db->insert('post', $data);*/
 
     }
 
@@ -270,7 +352,8 @@ class Posts_model extends CI_Model{
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
-                'remarks' => $this->input->post('remarks')
+                'remarks' => $this->input->post('remarks'),
+                'transactiontype' => $this->input->post('transactiontype')
             );
 
             //$this->db->where('boxtype', $boxtype);
@@ -288,7 +371,8 @@ class Posts_model extends CI_Model{
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
-                'remarks' => $this->input->post('remarks')
+                'remarks' => $this->input->post('remarks'),
+                'transactiontype' => $this->input->post('transactiontype')
             );
             $this->db->where('id', $id);
             $this->db->update('gsathd', $data);
@@ -304,7 +388,8 @@ class Posts_model extends CI_Model{
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
-                'remarks' => $this->input->post('remarks')
+                'remarks' => $this->input->post('remarks'),
+                'transactiontype' => $this->input->post('transactiontype')
             );
             $this->db->where('id', $id);
             $this->db->update('cignal', $data);
@@ -320,7 +405,8 @@ class Posts_model extends CI_Model{
                 'dateOfPurchase' => $this->input->post('dateofpurchase'),
                 'contact' => $this->input->post('contact'),
                 'installer' => $this->input->post('installer'),
-                'remarks' => $this->input->post('remarks')
+                'remarks' => $this->input->post('remarks'),
+                'transactiontype' => $this->input->post('transactiontype')
             );
             $this->db->where('id', $id);
             $this->db->update('satlite', $data);

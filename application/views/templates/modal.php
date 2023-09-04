@@ -8,14 +8,54 @@
       </div>
       <div class="modal-body text-center">
         <?= form_open('delete');?>
-            <h2>Are you sure you want to delete?</h2>
+            <h2>Please select reason for deleting.</h2>
                 <input type="hidden" value="<?= $this->uri->segment(2);?>" name="boxtype">
                 <input type="hidden" value="<?= $id;?>" name="id">
+      </div>
 
+      <!-- Reason for delete OPTIONS -->
+      <div class="container">
 
+        <div class="mx-auto d-block">
 
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deletereason" id="damage" onchange="handleRadioChange()">
+              <label class="form-check-label" for="damage">
+                Damage Box
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deletereason" id="duplicate" onchange="handleRadioChange()">
+              <label class="form-check-label" for="duplicate">
+                Duplicate Entry
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deletereason" id="wrong" onchange="handleRadioChange()">
+              <label class="form-check-label" for="wrong">
+                Wrong Entry
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deletereason" id="other" onchange="handleRadioChange()">
+              <label class="form-check-label" for="other">
+                Other Reason
+              </label>
+            </div>
+
+            <div class="form-group">
+                <textarea name="remarks" id="textarea" cols="30" rows="5" class="form-control" style="display: none;" placeholder="Please specify"></textarea>
+            </div>
+
+        </div>  
 
       </div>
+
+
+
       <div class="modal-footer">
         <div class="btn-group">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -25,3 +65,26 @@
     </div>
   </div>
 </div>
+
+<script>
+
+window.addEventListener("DOMContentLoaded", function() {
+  var radioOther = document.getElementById("other");
+  var textarea = document.getElementById("textarea");
+
+  textarea.style.display = !radioOther.checked ? "none" : "block";
+});
+
+function handleRadioChange() {
+    var radioOther = document.getElementById("other");
+    var textarea = document.getElementById("textarea");
+    
+    if (!radioOther.checked) {
+        textarea.style.display = "none";
+
+    } else {
+    textarea.style.display = "block";
+    }
+}
+
+</script>

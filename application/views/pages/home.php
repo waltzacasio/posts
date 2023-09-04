@@ -11,10 +11,10 @@
 <?php endif;?>
 
 
-<h1><?= $title;?></h1>
+<h1 class="text-center"><?= $title;?></h1>
 
-<form class="d-flex" role="search" method="post" action="<?= base_url();?>search">
-          <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" required>
+<form id="searchForm" class="d-flex" role="search" method="post" action="<?= base_url();?>search">
+          <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search" required>
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
 

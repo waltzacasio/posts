@@ -13,18 +13,21 @@
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Blog Post</a>
+      <a class="navbar-brand" href="<?= base_url();?>">WDMCRM</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?= base_url();?>">Home</a>
+            <a class="nav-link active" aria-current="page" href="<?= base_url();?>">Search</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url();?>add">New Record</a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="<?php //echo base_url();?>deleted">Deleted Records</a>
+          </li> -->
           <?php if($this->session->logged_in){?>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url();?>logout">Logout</a>

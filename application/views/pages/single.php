@@ -73,12 +73,16 @@
     
 <div class="btn-group"></div>
     <a href="<?= base_url()?><?= "edit/";?><?= $this->uri->segment(2) . "/";?><?= $boxNumber;?>" class="btn btn-primary">Edit</a>
-    <button type="button" class="btn btn-success" >View Edit History</button>
+    <button type="button" id="load-content-button" class="btn btn-success" >View Edit History</button>
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
 
-
-
 <?php } ?>
+
+
+<div id="content-container">
+        <!-- Content from example.html will be displayed here -->
+    </div>
+
 
 
 
@@ -108,6 +112,18 @@
                     chipIdLabel.style.display = "none";
                     boxnumberLabel.innerHTML = "Box Number / Account No. :";
                 }
+
+                document.getElementById("load-content-button").addEventListener("click", function() {
+                    fetch("https://127.0.0.1/records/edit_history")
+                        .then(response => response.text())
+                        .then(content => {
+                            var contentContainer = document.getElementById("content-container");
+                            contentContainer.innerHTML = content;
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                });
 
 
 </script>

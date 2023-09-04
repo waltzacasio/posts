@@ -382,10 +382,8 @@ public function edit_history(){
 
         $data['title'] = "Edit History";
 
-
-        $this->load->view('templates/header');
         $this->load->view('pages/'.$page, $data);
-        $this->load->view('templates/footer');
+
     
 }
 

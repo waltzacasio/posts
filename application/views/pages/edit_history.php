@@ -13,11 +13,10 @@
     <tr>
       <th scope="col" class="text-center align-middle">Time Stamp</th>
       <th scope="col" class="text-center align-middle">User</th>
-      <th scope="col" class="text-center align-middle">First Name</th>
-      <th scope="col" class="text-center align-middle">Last Name</th>
-      <th scope="col" class="text-center align-middle">Address</th>
-      <th scope="col" class="text-center align-middle">Contact Number</th>
-      <th scope="col" class="text-center align-middle">Remarks</th>
+      <th scope="col" class="text-center align-middle">Field Name</th>
+      <th scope="col" class="text-center align-middle">Old Value</th>
+      <th scope="col" class="text-center align-middle">New Value</th>
+      <th scope="col" class="text-center align-middle">Change Description</th>
     </tr>
   </thead>
 

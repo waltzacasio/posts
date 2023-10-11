@@ -333,7 +333,7 @@ public function edit($param1, $param2){
         if(!file_exists(APPPATH. 'views/pages/'.$page.'.php')){
             show_404();
         }
-//Populate form
+//Populate form, from database
             $data['posts'] = $this->Posts_model->get_posts_edit($param1, $param2);
             $data['title'] = "Edit Customer Details";
             $data['firstName'] = $data['posts']['firstName'] ?? null;

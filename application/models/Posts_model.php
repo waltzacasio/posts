@@ -7,13 +7,6 @@ class Posts_model extends CI_Model{
         $this->load->database();
     }
 
-    public function get_posts($limit = 0, $offset = 0){  
-
-        $query = $this->db->get('post', $limit, $offset);
-        return $query->result_array();
-
-    }
-
     private function does_view_exists($viewName) {
         $query = $this->db->query("SHOW TABLES LIKE '$viewName'");
         return $query->num_rows() > 0;
@@ -335,16 +328,31 @@ class Posts_model extends CI_Model{
 
     }
 
+    public function update_post_with_edit_log(){
+
+        $boxtype = $this->input->post('boxtype');
+
+            $id = $this->input->post('id');
+            $boxnumber = $this->input->post('boxnumber');
+
+            //this is from the database
+            $this->Posts_model->get_posts_edit($boxtype, $boxnumber);
+
+    }
+
+
+
     public function update_post(){
 
         $boxtype = $this->input->post('boxtype');
 
-        echo "Box Type: " . $boxtype;
+        //echo "Box Type: " . $boxtype;
 
         if ($boxtype == "gpinoy") {
 
             $id = $this->input->post('id');
 
+            //from the submitted form   
             $data = array(
                 'firstName' => $this->input->post('firstname'),
                 'lastName' => $this->input->post('lastname'),

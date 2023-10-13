@@ -212,10 +212,10 @@ class Posts_model extends CI_Model{
         return $result->row_array();
     }
 
-    public function get_posts_edit($param1, $param2){
+    public function get_posts_edit($boxtype, $boxnumber){
 
-        $this->db->where('boxNumber', $param2);
-        $result = $this->db->get($this->db->escape_identifiers($param1));
+        $this->db->where('boxNumber', $boxnumber);
+        $result = $this->db->get($this->db->escape_identifiers($boxtype));
 
         return $result->row_array();
     }
@@ -328,15 +328,60 @@ class Posts_model extends CI_Model{
 
     }
 
-    public function update_post_with_edit_log(){
+    public function createEditLogEntry($boxType, $boxNumber, $field, $oldValue, $newValue) {
 
-        $boxtype = $this->input->post('boxtype');
+        $timeStamp = date('Y-m-d H:i:s');
+        $user = $this->session->firstname;
 
-            $id = $this->input->post('id');
-            $boxnumber = $this->input->post('boxnumber');
+            $data = array(
 
-            //this is from the database
-            $this->Posts_model->get_posts_edit($boxtype, $boxnumber);
+                'boxNumber' => $boxNumber,
+                'timeStamp' => $timeStamp,
+                'user' => $user,
+                'fieldName' => $field,
+                'oldValue' => $oldValue,
+                'newValue' => $newValue,
+                /*changeDescription' => $changeDescription,*/
+            );
+
+        switch ($boxType) {
+            case "gpinoy":
+                return $this->db->insert('gpinoy_edit_logs', $data);
+                break;
+        }
+    
+}
+
+    public function update_post_with_edit_log($boxType, $boxNumber){
+
+        // Retrieve current record from the database
+        $currentRecord = $this->get_posts_edit($boxType, $boxNumber);
+
+        $id = $this->input->post('id');
+
+        $formData = array(
+            'firstName' => $this->input->post('firstname'),
+            'lastName' => $this->input->post('lastname'),
+            'address' => $this->input->post('address'),
+            'dateOfPurchase' => $this->input->post('dateofpurchase'),
+            'contact' => $this->input->post('contact'),
+            'installer' => $this->input->post('installer'),
+            'remarks' => $this->input->post('remarks'),
+            'transactionType' => $this->input->post('transactiontype')
+        );
+
+        // Compare each field in the form with the corresponding field in the database record
+        foreach ($formData as $field => $newValue) {
+            $oldValue = $currentRecord[$field];
+
+        if ($oldValue !== $newValue) {
+            $this->createEditLogEntry($boxType, $boxNumber, $field, $oldValue, $newValue);
+            }
+        }
+
+        // Update the database with the new form data
+        $this->db->where('id', $id);
+        $this->db->update('gpinoy', $formData);
 
     }
 

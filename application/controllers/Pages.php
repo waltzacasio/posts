@@ -359,7 +359,8 @@ public function edit($param1, $param2){
 
     }else{
 
-        $this->Posts_model->update_post();
+        //$this->Posts_model->update_post();
+        $this->Posts_model->update_post_with_edit_log($param1, $param2);
         $this->session->set_flashdata('post_updated','This customer was updated!');
         redirect(base_url() . 'details/' . $param1 ."/" . $param2);
 

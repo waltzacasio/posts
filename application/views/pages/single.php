@@ -73,7 +73,7 @@
     
 <div class="btn-group"></div>
     <a href="<?= base_url()?><?= "edit/";?><?= $this->uri->segment(2) . "/";?><?= $boxNumber;?>" class="btn btn-primary">Edit</a>
-    <button type="button" id="load-content-button" class="btn btn-success" >View Edit History</button>
+    <button type="button" id="load-content-button" data-record-id="<?= $boxNumber ?>" class="btn btn-success" >View Edit History</button>
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
 
 <?php } ?>
@@ -114,6 +114,49 @@
                 }
 
                 document.getElementById("load-content-button").addEventListener("click", function() {
+                    const recordId = this.getAttribute("data-record-id");
+
+                    fetch(`https://127.0.0.1/records/edit_history/${recordId}`)
+                        .then(response => response.text())
+                        .then(content => {
+                            var contentContainer = document.getElementById("content-container");
+                            contentContainer.innerHTML = content;
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+
+                    /*fetch(`https://127.0.0.1/records/edit_history/${recordId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json(); // Parse the response as JSON
+                        })
+                        .then(data => {
+                            console.log("Received data:", data);
+                            // Call a function to update the DOM with the data
+                            displayDataOnPage(data);
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });*/
+
+
+                    /*fetch(`https://127.0.0.1/records/edit_history/${recordId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Received data:", data); // Log the data received
+            // Use this data to update your page as needed
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });*/
+                });
+
+
+                /*document.getElementById("load-content-button").addEventListener("click", function() {
+                    
                     fetch("https://127.0.0.1/records/edit_history")
                         .then(response => response.text())
                         .then(content => {
@@ -123,7 +166,20 @@
                         .catch(error => {
                             console.error("Error:", error);
                         });
-                });
+                });*/
+
+                /*function displayDataOnPage(data) {
+                    const contentContainer = document.getElementById('content-container');
+                    contentContainer.innerHTML = ''; // Clear existing content
+
+                    // Loop through each row of data and display it
+                    data.forEach(row => {
+                        const rowElement = document.createElement('div');
+                        rowElement.innerText = JSON.stringify(row, null, 2); // Display the row data as JSON
+
+                        contentContainer.appendChild(rowElement);
+                    });
+                }*/
 
 
 </script>

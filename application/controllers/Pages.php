@@ -368,7 +368,13 @@ public function edit($param1, $param2){
 
 }
 
-public function edit_history(){
+public function edit_history($boxNumber){
+    
+       /* $editHistoryData = $this->Posts_model->get_edit_history($boxNumber);
+
+        header('Content-Type: application/json');
+        echo json_encode($editHistoryData);*/
+
 
     if (!$this->session->userdata('logged_in')) {
         // If not logged in, redirect to the login page
@@ -381,13 +387,32 @@ public function edit_history(){
             show_404();
         }
 
+        $this->load->library('pagination');
+
+        $config['base_url'] =  base_url() . 'edit_history/' . $boxNumber;
+        $config['total_rows'] = count($this->Posts_model->get_edit_history($boxNumber));
+        $config['per_page'] = 10;
+        $config['num_links'] = 2;
+        //enclosing markup
+        $config['full_tag_open'] = '<nav aria-label="Search results pages"><ul class="pagination">';
+        $config['full_tag_close'] = '</ul></nav>';
+        //digit links
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+        //adding attribute to anchors
+        $config['attributes'] = array('class' => 'page-link');
+        //current page link
+        $config['cur_tag_open'] = '<li class="page-item active" aria-current="page"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $this->pagination->initialize($config);
+
         $data['title'] = "Edit History";
+        $data['edit_logs'] = $this->Posts_model->get_edit_history($boxNumber, $config['per_page'], $this->uri->segment(3));
 
         $this->load->view('pages/'.$page, $data);
-
     
 }
-
 
 public function delete(){
 

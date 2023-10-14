@@ -220,6 +220,25 @@ class Posts_model extends CI_Model{
         return $result->row_array();
     }
 
+    public function get_edit_history($boxNumber, $limit = 0, $offset = 0){
+        
+        $this->db->where('boxNumber', $boxNumber);
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get('gpinoy_edit_logs');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array(); // Return an empty array if no results
+        }
+
+        /*$this->db->where('boxNumber', $boxnumber);
+        $result = $this->db->get('gpinoy_edit_logs');
+
+        return $result->result_array();*/
+
+    }
+
     function convertToMySQLDate($day, $month, $year) {
         return $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
     }
